@@ -1,0 +1,787 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enigma Cyber - Plataforma de Desafios</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts: Orbitron & Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Orbitron:wght@500;700;900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #050508;
+            color: #f3f4f6;
+            overflow-x: hidden;
+        }
+        .font-cyber {
+            font-family: 'Orbitron', sans-serif;
+        }
+        /* Neon Glow Effects */
+        .neon-blue {
+            text-shadow: 0 0 10px rgba(0, 243, 255, 0.7), 0 0 20px rgba(0, 243, 255, 0.4);
+        }
+        .neon-green {
+            text-shadow: 0 0 10px rgba(14, 255, 134, 0.7), 0 0 20px rgba(14, 255, 134, 0.4);
+        }
+        .neon-purple {
+            text-shadow: 0 0 10px rgba(188, 19, 254, 0.7), 0 0 20px rgba(188, 19, 254, 0.4);
+        }
+        .box-neon-blue {
+            box-shadow: 0 0 15px rgba(0, 243, 255, 0.25), inset 0 0 15px rgba(0, 243, 255, 0.1);
+            border: 1px solid rgba(0, 243, 255, 0.4);
+        }
+        .box-neon-blue:hover {
+            box-shadow: 0 0 25px rgba(0, 243, 255, 0.5), inset 0 0 20px rgba(0, 243, 255, 0.2);
+            border-color: rgba(0, 243, 255, 0.8);
+        }
+        .box-neon-green {
+            box-shadow: 0 0 15px rgba(14, 255, 134, 0.25), inset 0 0 15px rgba(14, 255, 134, 0.1);
+            border: 1px solid rgba(14, 255, 134, 0.4);
+        }
+        .box-neon-green:hover {
+            box-shadow: 0 0 25px rgba(14, 255, 134, 0.5), inset 0 0 20px rgba(14, 255, 134, 0.2);
+            border-color: rgba(14, 255, 134, 0.8);
+        }
+        .box-neon-purple {
+            box-shadow: 0 0 15px rgba(188, 19, 254, 0.25), inset 0 0 15px rgba(188, 19, 254, 0.1);
+            border: 1px solid rgba(188, 19, 254, 0.4);
+        }
+        .box-neon-purple:hover {
+            box-shadow: 0 0 25px rgba(188, 19, 254, 0.5), inset 0 0 20px rgba(188, 19, 254, 0.2);
+            border-color: rgba(188, 19, 254, 0.8);
+        }
+        .gradient-bg {
+            background: linear-gradient(135deg, #00f3ff 0%, #bc13fe 50%, #0eff86 100%);
+        }
+        .gradient-text {
+            background: linear-gradient(135deg, #00f3ff, #bc13fe, #0eff86);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #050508;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #1f2937;
+            border-radius: 4px;
+            border: 1px solid rgba(0, 243, 255, 0.2);
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #374151;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col bg-[#050508] text-gray-100 selection:bg-[#00f3ff] selection:text-black relative">
+
+    <!-- Background Grid Effect overlay -->
+    <div class="absolute inset-0 bg-[linear-gradient(to_right,#1f293710_1px,transparent_1px),linear-gradient(to_bottom,#1f293710_1px,transparent_1px)] bg-[size:4rem_4rem] pointer-events-none z-0"></div>
+
+    <!-- HEADER / NAVIGATION -->
+    <header class="relative z-20 w-full px-6 py-5 border-b border-gray-800/80 bg-black/60 backdrop-blur-md">
+        <div class="max-w-7xl mx-auto flex items-center justify-between">
+            
+            <!-- Logo / Brand -->
+            <div class="flex items-center space-x-3 cursor-pointer" onclick="switchTab('enigmas')">
+                <div class="w-10 h-10 rounded-xl gradient-bg p-[2px] flex items-center justify-center shadow-lg shadow-[#bc13fe]/30">
+                    <div class="w-full h-full bg-black rounded-[10px] flex items-center justify-center">
+                        <i class="fa-solid fa-brain gradient-text text-lg"></i>
+                    </div>
+                </div>
+                <span class="font-cyber font-bold text-xl tracking-wider gradient-text">CYBER<span class="text-white">ENIGMA</span></span>
+            </div>
+
+            <!-- CARDS NA PARTE SUPERIOR CENTRAL -->
+            <nav class="hidden md:flex items-center space-x-4">
+                <!-- Card 1: Como Funciona -->
+                <button onclick="switchTab('como-funciona')" id="nav-como-funciona" class="nav-card px-6 py-2.5 rounded-xl font-cyber text-sm tracking-wider uppercase transition-all duration-300 bg-[#0b0f19] box-neon-blue text-[#00f3ff] flex items-center space-x-2">
+                    <i class="fa-solid fa-circle-question"></i>
+                    <span>Como Funciona</span>
+                </button>
+
+                <!-- Card 2: Ranking -->
+                <button onclick="switchTab('ranking')" id="nav-ranking" class="nav-card px-6 py-2.5 rounded-xl font-cyber text-sm tracking-wider uppercase transition-all duration-300 bg-[#0b0f19] border border-gray-800 text-gray-400 hover:text-[#0eff86] flex items-center space-x-2">
+                    <i class="fa-solid fa-trophy"></i>
+                    <span>Ranking</span>
+                </button>
+
+                <!-- Card 3: Enigmas -->
+                <button onclick="switchTab('enigmas')" id="nav-enigmas" class="nav-card px-6 py-2.5 rounded-xl font-cyber text-sm tracking-wider uppercase transition-all duration-300 bg-[#0b0f19] border border-gray-800 text-gray-400 hover:text-[#bc13fe] flex items-center space-x-2">
+                    <i class="fa-solid fa-puzzle-piece"></i>
+                    <span>Enigmas</span>
+                </button>
+            </nav>
+
+            <!-- EXTREMIDADE DIREITA: IMAGEM DE PERFIL -->
+            <div class="relative">
+                <button onclick="toggleProfileModal()" class="relative group focus:outline-none flex items-center space-x-3 bg-gray-900/60 p-1.5 pr-4 rounded-full border border-gray-800 hover:border-[#bc13fe] transition-all">
+                    <div class="relative w-10 h-10 rounded-full overflow-hidden border-2 border-[#00f3ff] group-hover:border-[#bc13fe] transition-colors">
+                        <img id="header-avatar" src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=150&q=80" alt="Perfil" class="w-full h-full object-cover">
+                    </div>
+                    <div class="text-left hidden sm:block">
+                        <div id="header-username" class="text-xs font-bold text-gray-200 truncate max-w-[100px]">Alex Hacker</div>
+                        <div class="text-[10px] text-[#0eff86] font-mono">Enigma #3</div>
+                    </div>
+                    <i class="fa-solid fa-chevron-down text-xs text-gray-400 group-hover:text-white transition-transform"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Nav Menu (Cards embaixo no mobile) -->
+        <div class="flex md:hidden items-center justify-around mt-4 pt-3 border-t border-gray-800/60">
+            <button onclick="switchTab('como-funciona')" id="mob-nav-como-funciona" class="mob-nav font-cyber text-xs uppercase text-[#00f3ff] flex flex-col items-center space-y-1">
+                <i class="fa-solid fa-circle-question text-base"></i>
+                <span>Funciona</span>
+            </button>
+            <button onclick="switchTab('ranking')" id="mob-nav-ranking" class="mob-nav font-cyber text-xs uppercase text-gray-400 flex flex-col items-center space-y-1">
+                <i class="fa-solid fa-trophy text-base"></i>
+                <span>Ranking</span>
+            </button>
+            <button onclick="switchTab('enigmas')" id="mob-nav-enigmas" class="mob-nav font-cyber text-xs uppercase text-gray-400 flex flex-col items-center space-y-1">
+                <i class="fa-solid fa-puzzle-piece text-base"></i>
+                <span>Enigmas</span>
+            </button>
+        </div>
+    </header>
+
+    <!-- MAIN CONTAINER -->
+    <main class="relative z-10 flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 py-8">
+
+        <!-- ================= SECTION: COMO FUNCIONA ================= -->
+        <section id="section-como-funciona" class="tab-section hidden space-y-8 animate-fadeIn">
+            <div class="text-center max-w-3xl mx-auto space-y-4">
+                <h1 class="font-cyber text-3xl sm:text-4xl font-extrabold tracking-wider gradient-text">COMO FUNCIONA A PLATAFORMA</h1>
+                <p class="text-gray-400 text-sm sm:text-base">Mergulhe no submundo dos enigmas cibernéticos. Desvende códigos, decifre imagens, compre dicas e suba no ranking nacional.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 pt-4">
+                <!-- Passo 1 -->
+                <div class="bg-[#0b0f19]/80 backdrop-blur border border-[#00f3ff]/30 rounded-2xl p-6 box-neon-blue relative group hover:-translate-y-1 transition-all">
+                    <div class="absolute -top-4 left-6 w-8 h-8 rounded-lg bg-[#00f3ff] text-black font-cyber font-bold flex items-center justify-center shadow-lg">01</div>
+                    <div class="pt-2 space-y-3">
+                        <div class="w-12 h-12 rounded-xl bg-[#00f3ff]/10 flex items-center justify-center text-[#00f3ff] text-xl">
+                            <i class="fa-solid fa-puzzle-piece"></i>
+                        </div>
+                        <h3 class="font-cyber font-bold text-lg text-[#00f3ff]">Resolva Enigmas</h3>
+                        <p class="text-gray-400 text-sm leading-relaxed">Cada enigma apresenta um desafio único baseado em lógica, criptografia, enigmas textuais ou visuais. Digite a resposta correta na barra designada para avançar.</p>
+                    </div>
+                </div>
+
+                <!-- Passo 2 -->
+                <div class="bg-[#0b0f19]/80 backdrop-blur border border-[#bc13fe]/30 rounded-2xl p-6 box-neon-purple relative group hover:-translate-y-1 transition-all">
+                    <div class="absolute -top-4 left-6 w-8 h-8 rounded-lg bg-[#bc13fe] text-white font-cyber font-bold flex items-center justify-center shadow-lg">02</div>
+                    <div class="pt-2 space-y-3">
+                        <div class="w-12 h-12 rounded-xl bg-[#bc13fe]/10 flex items-center justify-center text-[#bc13fe] text-xl">
+                            <i class="fa-solid fa-lightbulb"></i>
+                        </div>
+                        <h3 class="font-cyber font-bold text-lg text-[#bc13fe]">Sistema de Dicas</h3>
+                        <p class="text-gray-400 text-sm leading-relaxed">Travado em algum enigma? Você pode adquirir até 3 dicas exclusivas por enigma. Cada dica tem o custo simbólico de apenas R$ 0,10 para auxiliar sua jornada.</p>
+                    </div>
+                </div>
+
+                <!-- Passo 3 -->
+                <div class="bg-[#0b0f19]/80 backdrop-blur border border-[#0eff86]/30 rounded-2xl p-6 box-neon-green relative group hover:-translate-y-1 transition-all">
+                    <div class="absolute -top-4 left-6 w-8 h-8 rounded-lg bg-[#0eff86] text-black font-cyber font-bold flex items-center justify-center shadow-lg">03</div>
+                    <div class="pt-2 space-y-3">
+                        <div class="w-12 h-12 rounded-xl bg-[#0eff86]/10 flex items-center justify-center text-[#0eff86] text-xl">
+                            <i class="fa-solid fa-stopwatch"></i>
+                        </div>
+                        <h3 class="font-cyber font-bold text-lg text-[#0eff86]">Ranking Nacional & Tempo</h3>
+                        <p class="text-gray-400 text-sm leading-relaxed">O ranking avalia primariamente o <strong>número do enigma</strong> em que você está. Em caso de empate, o <strong>tempo total somado</strong> de conclusão decide sua posição. Seja rápido!</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Proposta / Banner extra -->
+            <div class="bg-gradient-to-r from-[#00f3ff]/10 via-[#bc13fe]/10 to-[#0eff86]/10 border border-gray-800 rounded-2xl p-8 text-center space-y-4">
+                <h3 class="font-cyber text-xl font-bold text-white">Nossa Proposta</h3>
+                <p class="text-gray-300 max-w-2xl mx-auto text-sm">Criar um ambiente imersivo, desafiador e divertido para testar os limites do seu raciocínio lógico, estimulando a comunidade através de uma disputa saudável de velocidade e inteligência.</p>
+                <button onclick="switchTab('enigmas')" class="px-8 py-3 rounded-xl gradient-bg text-black font-cyber font-bold tracking-wider hover:opacity-90 transition-opacity shadow-lg shadow-[#00f3ff]/20">
+                    COMEÇAR AGORA
+                </button>
+            </div>
+        </section>
+
+
+        <!-- ================= SECTION: RANKING ================= -->
+        <section id="section-ranking" class="tab-section hidden space-y-6 animate-fadeIn">
+            <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+                <div>
+                    <h1 class="font-cyber text-3xl font-extrabold tracking-wider text-[#0eff86] neon-green">RANKING NACIONAL</h1>
+                    <p class="text-gray-400 text-sm">Classificação baseada no Enigma atual e menor tempo total acumulado.</p>
+                </div>
+                <div class="bg-[#0b0f19] border border-gray-800 px-4 py-2 rounded-xl flex items-center space-x-3 text-xs text-gray-400">
+                    <span class="flex items-center space-x-1.5"><span class="w-2.5 h-2.5 rounded-full bg-[#0eff86]"></span><span>Menor tempo = Melhor posição em empate</span></span>
+                </div>
+            </div>
+
+            <!-- Tabela de Ranking -->
+            <div class="bg-[#0b0f19]/90 border border-gray-800 rounded-2xl overflow-hidden shadow-2xl">
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left border-collapse">
+                        <thead>
+                            <tr class="border-b border-gray-800 text-gray-400 font-cyber text-xs tracking-wider bg-black/40">
+                                <th class="py-4 px-6">Posição</th>
+                                <th class="py-4 px-6">Usuário</th>
+                                <th class="py-4 px-6">Enigma Atual</th>
+                                <th class="py-4 px-6">Tempo Total Somado</th>
+                                <th class="py-4 px-6 text-right">Status</th>
+                            </tr>
+                        </thead>
+                        <tbody id="ranking-table-body" class="divide-y divide-gray-800/60 text-sm">
+                            <!-- Preenchido via JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- ================= SECTION: ENIGMAS ================= -->
+        <section id="section-enigmas" class="tab-section space-y-6 animate-fadeIn max-w-4xl mx-auto">
+            
+            <!-- Top bar do Enigma: Número e Temporizador -->
+            <div class="flex items-center justify-between bg-[#0b0f19] border border-gray-800 rounded-2xl p-4 sm:px-6">
+                <div class="flex items-center space-x-3">
+                    <div class="w-10 h-10 rounded-xl bg-[#bc13fe]/20 border border-[#bc13fe]/40 flex items-center justify-center text-[#bc13fe] font-cyber font-bold">
+                        <i class="fa-solid fa-puzzle-piece"></i>
+                    </div>
+                    <div>
+                        <div class="text-xs text-gray-400 font-cyber uppercase tracking-wider">Desafio Atual</div>
+                        <div id="current-enigma-title" class="font-cyber font-bold text-lg text-white">Enigma #1</div>
+                    </div>
+                </div>
+
+                <div class="flex items-center space-x-6">
+                    <div class="flex items-center space-x-2 bg-black/50 border border-gray-800 px-4 py-2 rounded-xl">
+                        <i class="fa-solid fa-stopwatch text-[#00f3ff] animate-pulse"></i>
+                        <span class="text-xs text-gray-400 hidden sm:inline">Tempo:</span>
+                        <span id="enigma-timer" class="font-mono font-bold text-[#00f3ff] text-base">00:00</span>
+                    </div>
+
+                    <!-- Botão de Comprar Dicas -->
+                    <button onclick="openHintsModal()" class="relative px-4 py-2 rounded-xl bg-[#bc13fe]/10 hover:bg-[#bc13fe]/20 border border-[#bc13fe]/40 text-[#bc13fe] font-cyber text-xs font-bold transition-all flex items-center space-x-2">
+                        <i class="fa-solid fa-lightbulb"></i>
+                        <span>Dicas</span>
+                        <span id="hints-badge" class="absolute -top-2 -right-2 w-5 h-5 bg-[#bc13fe] text-white rounded-full text-[10px] flex items-center justify-center font-bold">3</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Caixa de Conteúdo do Enigma (Texto / Imagem) -->
+            <div class="bg-[#0b0f19] border border-gray-800 rounded-2xl p-6 sm:p-8 space-y-6 relative overflow-hidden box-neon-purple">
+                <div class="absolute top-0 right-0 w-32 h-32 bg-[#bc13fe]/5 rounded-full blur-3xl pointer-events-none"></div>
+                
+                <!-- Descrição / Texto do Enigma -->
+                <div id="enigma-text-container" class="space-y-4">
+                    <h2 id="enigma-question-title" class="font-cyber text-xl font-bold text-white">O Despertar da IA</h2>
+                    <p id="enigma-question-desc" class="text-gray-300 text-sm sm:text-base leading-relaxed">
+                        Sou feito de zeros e uns, não tenho corpo mas posso pensar. Viajo pela rede na velocidade da luz. Qual é a palavra-chave que comanda o meu núcleo? (Dica: A resposta tem 5 letras, todas maiúsculas).
+                    </p>
+                </div>
+
+                <!-- Imagem do Enigma (se houver) -->
+                <div id="enigma-image-container" class="hidden rounded-xl overflow-hidden border border-gray-800 max-h-80 bg-black flex items-center justify-center">
+                    <img id="enigma-img" src="" alt="Enigma Imagem" class="object-contain max-h-80 w-full">
+                </div>
+
+                <!-- Barra de Resposta -->
+                <div class="pt-4 border-t border-gray-800/80 space-y-3">
+                    <label class="block text-xs font-cyber tracking-wider text-gray-400 uppercase">Insira a Resposta Correta</label>
+                    <form onsubmit="submitAnswer(event)" class="flex flex-col sm:flex-row gap-3">
+                        <div class="relative flex-1">
+                            <span class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-gray-500">
+                                <i class="fa-solid fa-terminal"></i>
+                            </span>
+                            <input type="text" id="answer-input" autocomplete="off" placeholder="Digite sua resposta..." class="w-full pl-11 pr-4 py-3.5 bg-black/60 border border-gray-800 rounded-xl text-white placeholder-gray-600 focus:outline-none focus:border-[#00f3ff] focus:ring-1 focus:ring-[#00f3ff] text-sm font-mono transition-all">
+                        </div>
+                        <button type="submit" class="px-8 py-3.5 rounded-xl gradient-bg text-black font-cyber font-bold text-sm tracking-wider hover:opacity-90 transition-opacity shadow-lg shadow-[#00f3ff]/20 flex items-center justify-center space-x-2">
+                            <span>ENVIAR</span>
+                            <i class="fa-solid fa-arrow-right"></i>
+                        </button>
+                    </form>
+                    <div id="feedback-msg" class="text-xs font-mono h-5"></div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- ================= MODAL DE DICAS (R$ 0,10) ================= -->
+    <div id="hints-modal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm hidden animate-fadeIn">
+        <div class="bg-[#0b0f19] border border-[#bc13fe]/50 rounded-2xl w-full max-w-md p-6 m-4 space-y-6 box-neon-purple relative">
+            <div class="flex items-center justify-between border-b border-gray-800 pb-4">
+                <div class="flex items-center space-x-3">
+                    <div class="w-10 h-10 rounded-xl bg-[#bc13fe]/20 flex items-center justify-center text-[#bc13fe]">
+                        <i class="fa-solid fa-lightbulb"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-cyber font-bold text-white text-base">Comprar Dicas</h3>
+                        <p class="text-xs text-gray-400">Cada dica custa apenas R$ 0,10</p>
+                    </div>
+                </div>
+                <button onclick="closeHintsModal()" class="text-gray-400 hover:text-white p-2">
+                    <i class="fa-solid fa-xmark text-lg"></i>
+                </button>
+            </div>
+
+            <!-- Lista de Dicas -->
+            <div id="hints-list" class="space-y-3">
+                <!-- Preenchido via JS -->
+            </div>
+
+            <div class="pt-2 text-center text-xs text-gray-500 font-mono">
+                Valor creditado via saldo simulado da conta.
+            </div>
+        </div>
+    </div>
+
+
+    <!-- ================= MODAL DE PERFIL DO USUÁRIO ================= -->
+    <div id="profile-modal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm hidden animate-fadeIn">
+        <div class="bg-[#0b0f19] border border-[#00f3ff]/50 rounded-2xl w-full max-w-lg p-6 sm:p-8 m-4 space-y-6 box-neon-blue relative">
+            <div class="flex items-center justify-between border-b border-gray-800 pb-4">
+                <div class="flex items-center space-x-3">
+                    <div class="w-10 h-10 rounded-xl bg-[#00f3ff]/20 flex items-center justify-center text-[#00f3ff]">
+                        <i class="fa-solid fa-user-gear"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-cyber font-bold text-white text-base">Dados Cadastrais & Perfil</h3>
+                        <p class="text-xs text-gray-400">Gerencie sua conta e credenciais</p>
+                    </div>
+                </div>
+                <button onclick="toggleProfileModal()" class="text-gray-400 hover:text-white p-2">
+                    <i class="fa-solid fa-xmark text-lg"></i>
+                </button>
+            </div>
+
+            <!-- Foto de Perfil e Alteração -->
+            <div class="flex flex-col sm:flex-row items-center space-y-4 sm:space-y-0 sm:space-x-6 bg-black/40 p-4 rounded-xl border border-gray-800">
+                <div class="relative w-20 h-20 rounded-full overflow-hidden border-2 border-[#00f3ff] shadow-lg">
+                    <img id="modal-avatar-preview" src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=150&q=80" alt="Avatar" class="w-full h-full object-cover">
+                </div>
+                <div class="flex-1 space-y-2 text-center sm:text-left">
+                    <label class="block text-xs font-cyber text-gray-400 uppercase">Alterar Foto de Perfil (URL)</label>
+                    <div class="flex gap-2">
+                        <input type="text" id="avatar-url-input" placeholder="Cole o link da imagem..." class="flex-1 bg-black/60 border border-gray-800 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-[#00f3ff]">
+                        <button onclick="updateAvatar()" class="px-4 py-2 bg-[#00f3ff] text-black font-cyber text-xs font-bold rounded-lg hover:opacity-90">Salvar</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Dados Cadastrais & Conta Vinculada -->
+            <div class="space-y-4">
+                <div class="space-y-1">
+                    <label class="text-xs font-cyber text-gray-400 uppercase">Nome de Usuário</label>
+                    <input type="text" id="profile-username-input" class="w-full bg-black/60 border border-gray-800 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-[#00f3ff]" value="Alex Hacker">
+                </div>
+
+                <div class="space-y-1">
+                    <label class="text-xs font-cyber text-gray-400 uppercase">Conta Vinculada (Email / Provedor)</label>
+                    <div class="flex items-center justify-between bg-black/60 border border-gray-800 rounded-xl px-4 py-2.5 text-sm text-gray-300">
+                        <span id="linked-account-email" class="flex items-center space-x-2">
+                            <i class="fa-brands fa-google text-[#00f3ff]"></i>
+                            <span>alex.hacker@cybermail.com</span>
+                        </span>
+                        <span class="text-xs bg-[#0eff86]/10 text-[#0eff86] px-2 py-0.5 rounded font-mono">Ativo</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Ações da Conta: Alterar, Remover, Adicionar outra -->
+            <div class="pt-4 border-t border-gray-800 flex flex-wrap gap-3 justify-between">
+                <div class="flex gap-2">
+                    <button onclick="switchAccount()" class="px-4 py-2 rounded-xl bg-gray-800 hover:bg-gray-700 text-gray-200 text-xs font-cyber font-bold transition-colors flex items-center space-x-2">
+                        <i class="fa-solid fa-right-left"></i>
+                        <span>Alterar Conta</span>
+                    </button>
+                    <button onclick="addAnotherAccount()" class="px-4 py-2 rounded-xl bg-[#bc13fe]/20 hover:bg-[#bc13fe]/30 border border-[#bc13fe]/40 text-[#bc13fe] text-xs font-cyber font-bold transition-colors flex items-center space-x-2">
+                        <i class="fa-solid fa-user-plus"></i>
+                        <span>Adicionar Outra</span>
+                    </button>
+                </div>
+                <button onclick="removeAccount()" class="px-4 py-2 rounded-xl bg-red-500/10 hover:bg-red-500/20 border border-red-500/30 text-red-400 text-xs font-cyber font-bold transition-colors flex items-center space-x-2">
+                    <i class="fa-solid fa-trash-can"></i>
+                    <span>Remover Conta</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- JAVASCRIPT LOGIC -->
+    <script>
+        // --- DADOS DO JOGO E ESTADO ---
+        let currentUser = {
+            name: "Alex Hacker",
+            avatar: "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=150&q=80",
+            email: "alex.hacker@cybermail.com",
+            currentEnigma: 1,
+            totalTimeSeconds: 0 // Tempo total somado em segundos
+        };
+
+        // Lista de Enigmas
+        const enigmas = [
+            {
+                id: 1,
+                title: "O Despertar da IA",
+                type: "text",
+                content: "Sou feito de zeros e uns, não tenho corpo mas posso pensar. Viajo pela rede na velocidade da luz. Qual é a palavra-chave que comanda o meu núcleo? (Dica: A resposta tem 5 letras: COREX)",
+                answer: "COREX",
+                hints: [
+                    "A primeira letra é C.",
+                    "Termina com a letra X.",
+                    "A palavra exata é COREX."
+                ]
+            },
+            {
+                id: 2,
+                title: "Labirinto Criptografado",
+                type: "text",
+                content: "Se 1 = 3, 2 = 3, 3 = 5, 4 = 4, 5 = 4, quanto vale 6? (Dica: Conte o número de letras da palavra do número em inglês: one=3, two=3, three=5, four=4, five=4, six=3). Qual o número?",
+                answer: "3",
+                hints: [
+                    "Pense na escrita dos números por extenso em inglês.",
+                    "One (3), Two (3), Three (5), Four (4), Five (4).",
+                    "A resposta é o número 3."
+                ]
+            },
+            {
+                id: 3,
+                title: "O Cofre de Neon",
+                type: "image",
+                content: "Analise a imagem abaixo e descubra o código de 4 dígitos oculto no visor do terminal quântico.",
+                image: "https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?auto=format&fit=crop&w=800&q=80",
+                answer: "8492",
+                hints: [
+                    "Observe os dígitos brilhantes no canto superior esquerdo da tela.",
+                    "Os números são 8, 4, 9 e 2 nessa ordem.",
+                    "A senha é 8492."
+                ]
+            },
+            {
+                id: 4,
+                title: "Protocolo Final",
+                type: "text",
+                content: "Parabéns por chegar até aqui. Para concluir o último desafio e reinar no topo, digite o nome do criador de toda esta matriz cibernética: 'MATRIX'.",
+                answer: "MATRIX",
+                hints: [
+                    "É o nome do famoso filme de ficção científica cyberpunk.",
+                    "Começa com M e termina com X.",
+                    "A resposta é MATRIX."
+                ]
+            }
+        ];
+
+        // Lista de Usuários no Ranking (Simulados)
+        let rankingUsers = [
+            { id: 1, name: "CyberQueen", avatar: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=150&q=80", currentEnigma: 4, totalTimeSeconds: 145, isMe: false },
+            { id: 2, name: "NeoMatrix", avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=150&q=80", currentEnigma: 4, totalTimeSeconds: 210, isMe: false },
+            { id: 3, name: "Alex Hacker", avatar: currentUser.avatar, currentEnigma: currentUser.currentEnigma, totalTimeSeconds: currentUser.totalTimeSeconds, isMe: true },
+            { id: 4, name: "GlitchBoy", avatar: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=150&q=80", currentEnigma: 2, totalTimeSeconds: 90, isMe: false },
+            { id: 5, name: "ZeroCool", avatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=150&q=80", currentEnigma: 1, totalTimeSeconds: 45, isMe: false }
+        ];
+
+        // Controle de Temporizador do Enigma Atual
+        let sessionSeconds = 0;
+        let timerInterval = null;
+        let unlockedHints = {}; // { enigmaId: [0, 1] }
+
+        // --- INICIALIZAÇÃO ---
+        window.onload = function() {
+            startTimer();
+            loadEnigma(currentUser.currentEnigma);
+            renderRanking();
+        };
+
+        // --- SISTEMA DE ABAS (TABS) ---
+        function switchTab(tabName) {
+            // Esconder todas as seções
+            document.querySelectorAll('.tab-section').forEach(sec => sec.classList.add('hidden'));
+            
+            // Mostrar seção selecionada
+            document.getElementById(`section-${tabName}`).classList.remove('hidden');
+
+            // Atualizar classes dos cards superiores (Desktop)
+            document.querySelectorAll('.nav-card').forEach(btn => {
+                btn.className = "nav-card px-6 py-2.5 rounded-xl font-cyber text-sm tracking-wider uppercase transition-all duration-300 bg-[#0b0f19] border border-gray-800 text-gray-400 flex items-center space-x-2";
+            });
+
+            const activeBtn = document.getElementById(`nav-${tabName}`);
+            if (activeBtn) {
+                if (tabName === 'como-funciona') {
+                    activeBtn.className = "nav-card px-6 py-2.5 rounded-xl font-cyber text-sm tracking-wider uppercase transition-all duration-300 bg-[#0b0f19] box-neon-blue text-[#00f3ff] flex items-center space-x-2";
+                } else if (tabName === 'ranking') {
+                    activeBtn.className = "nav-card px-6 py-2.5 rounded-xl font-cyber text-sm tracking-wider uppercase transition-all duration-300 bg-[#0b0f19] box-neon-green text-[#0eff86] flex items-center space-x-2";
+                    renderRanking();
+                } else if (tabName === 'enigmas') {
+                    activeBtn.className = "nav-card px-6 py-2.5 rounded-xl font-cyber text-sm tracking-wider uppercase transition-all duration-300 bg-[#0b0f19] box-neon-purple text-[#bc13fe] flex items-center space-x-2";
+                }
+            }
+
+            // Atualizar navegação mobile
+            document.querySelectorAll('.mob-nav').forEach(btn => {
+                btn.className = "mob-nav font-cyber text-xs uppercase text-gray-400 flex flex-col items-center space-y-1";
+            });
+            const mobActive = document.getElementById(`mob-nav-${tabName}`);
+            if (mobActive) {
+                if (tabName === 'como-funciona') mobActive.className = "mob-nav font-cyber text-xs uppercase text-[#00f3ff] flex flex-col items-center space-y-1";
+                if (tabName === 'ranking') mobActive.className = "mob-nav font-cyber text-xs uppercase text-[#0eff86] flex flex-col items-center space-y-1";
+                if (tabName === 'enigmas') mobActive.className = "mob-nav font-cyber text-xs uppercase text-[#bc13fe] flex flex-col items-center space-y-1";
+            }
+        }
+
+        // --- CRONÔMETRO ---
+        function startTimer() {
+            if (timerInterval) clearInterval(timerInterval);
+            timerInterval = setInterval(() => {
+                sessionSeconds++;
+                currentUser.totalTimeSeconds++;
+                
+                // Formatar MM:SS
+                let mins = Math.floor(sessionSeconds / 60);
+                let secs = sessionSeconds % 60;
+                let formatted = `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+                document.getElementById('enigma-timer').innerText = formatted;
+            }, 1000);
+        }
+
+        // --- CARREGAR ENIGMA ---
+        function loadEnigma(enigmaNum) {
+            const enigma = enigmas.find(e => e.id === enigmaNum);
+            if (!enigma) {
+                // Fim de todos os enigmas
+                document.getElementById('section-enigmas').innerHTML = `
+                    <div class="bg-[#0b0f19] border border-[#0eff86]/50 rounded-2xl p-8 text-center space-y-6 box-neon-green">
+                        <div class="w-16 h-16 rounded-2xl bg-[#0eff86]/20 mx-auto flex items-center justify-center text-[#0eff86] text-3xl">
+                            <i class="fa-solid fa-trophy"></i>
+                        </div>
+                        <h2 class="font-cyber text-2xl font-bold text-[#0eff86]">PARABÉNS! VOCÊ ZEROU OS ENIGMAS</h2>
+                        <p class="text-gray-300 text-sm max-w-md mx-auto">Você concluiu todos os desafios disponíveis na matriz cibernética com sucesso absoluto.</p>
+                        <button onclick="switchTab('ranking')" class="px-8 py-3 rounded-xl gradient-bg text-black font-cyber font-bold text-sm tracking-wider">VER SUA POSIÇÃO NO RANKING</button>
+                    </div>
+                `;
+                return;
+            }
+
+            document.getElementById('current-enigma-title').innerText = `Enigma #${enigma.id}`;
+            document.getElementById('enigma-question-title').innerText = enigma.title;
+            document.getElementById('enigma-question-desc').innerText = enigma.content;
+
+            const imgContainer = document.getElementById('enigma-image-container');
+            const imgElement = document.getElementById('enigma-img');
+            if (enigma.type === 'image' && enigma.image) {
+                imgElement.src = enigma.image;
+                imgContainer.classList.remove('hidden');
+            } else {
+                imgContainer.classList.add('hidden');
+            }
+
+            document.getElementById('answer-input').value = '';
+            document.getElementById('feedback-msg').innerText = '';
+            updateHintsBadge();
+        }
+
+        // --- SUBMETER RESPOSTA ---
+        function submitAnswer(event) {
+            event.preventDefault();
+            const inputVal = document.getElementById('answer-input').value.trim().toUpperCase();
+            const enigma = enigmas.find(e => e.id === currentUser.currentEnigma);
+            const feedback = document.getElementById('feedback-msg');
+
+            if (inputVal === enigma.answer.toUpperCase()) {
+                feedback.className = "text-xs font-mono text-[#0eff86] font-bold";
+                feedback.innerText = "⚡ Resposta correta! Transferindo para o próximo enigma...";
+                
+                // Salvar tempo acumulado desta fase
+                currentUser.currentEnigma++;
+                
+                // Atualizar no ranking simulado
+                updateUserInRanking();
+
+                setTimeout(() => {
+                    sessionSeconds = 0; // Reiniciar cronômetro para o próximo enigma
+                    loadEnigma(currentUser.currentEnigma);
+                }, 1500);
+            } else {
+                feedback.className = "text-xs font-mono text-red-400 font-bold";
+                feedback.innerText = "❌ Resposta incorreta. Tente novamente!";
+            }
+        }
+
+        // --- SISTEMA DE DICAS (R$ 0,10) ---
+        function openHintsModal() {
+            const enigma = enigmas.find(e => e.id === currentUser.currentEnigma);
+            if (!enigma) return;
+
+            const listEl = document.getElementById('hints-list');
+            listEl.innerHTML = '';
+
+            const unlocked = unlockedHints[enigma.id] || [];
+
+            enigma.hints.forEach((hintText, index) => {
+                const isUnlocked = unlocked.includes(index);
+                let html = `
+                    <div class="bg-black/60 border border-gray-800 rounded-xl p-4 flex items-center justify-between">
+                        <div class="space-y-1 pr-4">
+                            <div class="text-xs font-cyber text-[#bc13fe]">Dica ${index + 1}</div>
+                `;
+                if (isUnlocked) {
+                    html += `<div class="text-xs text-gray-200">${hintText}</div>`;
+                } else {
+                    html += `<div class="text-xs text-gray-500 italic">🔒 Conteúdo criptografado (R$ 0,10)</div>`;
+                }
+                html += `</div>`;
+
+                if (!isUnlocked) {
+                    html += `<button onclick="buyHint(${enigma.id}, ${index})" class="px-3 py-1.5 rounded-lg bg-[#bc13fe] text-white font-cyber text-xs font-bold hover:opacity-90 whitespace-nowrap">Comprar R$ 0,10</button>`;
+                } else {
+                    html += `<span class="text-xs text-[#0eff86] font-mono"><i class="fa-solid fa-check"></i> Desbloqueada</span>`;
+                }
+                html += `</div>`;
+                listEl.innerHTML += html;
+            });
+
+            document.getElementById('hints-modal').classList.remove('hidden');
+        }
+
+        function closeHintsModal() {
+            document.getElementById('hints-modal').classList.add('hidden');
+        }
+
+        function buyHint(enigmaId, hintIndex) {
+            if (!unlockedHints[enigmaId]) {
+                unlockedHints[enigmaId] = [];
+            }
+            unlockedHints[enigmaId].push(hintIndex);
+            openHintsModal();
+            updateHintsBadge();
+        }
+
+        function updateHintsBadge() {
+            const enigma = enigmas.find(e => e.id === currentUser.currentEnigma);
+            if (!enigma) return;
+            const unlocked = unlockedHints[enigma.id] || [];
+            const remaining = enigma.hints.length - unlocked.length;
+            document.getElementById('hints-badge').innerText = remaining;
+        }
+
+        // --- GERENCIAMENTO DE PERFIL ---
+        function toggleProfileModal() {
+            const modal = document.getElementById('profile-modal');
+            modal.classList.toggle('hidden');
+            if (!modal.classList.contains('hidden')) {
+                document.getElementById('profile-username-input').value = currentUser.name;
+                document.getElementById('avatar-url-input').value = currentUser.avatar;
+                document.getElementById('modal-avatar-preview').src = currentUser.avatar;
+                document.getElementById('linked-account-email').innerHTML = `<i class="fa-brands fa-google text-[#00f3ff]"></i><span>${currentUser.email}</span>`;
+            }
+        }
+
+        function updateAvatar() {
+            const newUrl = document.getElementById('avatar-url-input').value.trim();
+            const newName = document.getElementById('profile-username-input').value.trim();
+            if (newUrl) {
+                currentUser.avatar = newUrl;
+                document.getElementById('header-avatar').src = newUrl;
+                document.getElementById('modal-avatar-preview').src = newUrl;
+            }
+            if (newName) {
+                currentUser.name = newName;
+                document.getElementById('header-username').innerText = newName;
+            }
+            updateUserInRanking();
+            alert("Perfil atualizado com sucesso!");
+        }
+
+        function switchAccount() {
+            const newEmail = prompt("Digite o email da nova conta vinculada:", "outro.usuario@cybermail.com");
+            if (newEmail) {
+                currentUser.email = newEmail;
+                currentUser.name = newEmail.split('@')[0];
+                document.getElementById('header-username').innerText = currentUser.name;
+                document.getElementById('linked-account-email').innerHTML = `<i class="fa-brands fa-google text-[#00f3ff]"></i><span>${currentUser.email}</span>`;
+                updateUserInRanking();
+                alert(`Conta alterada para: ${newEmail}`);
+            }
+        }
+
+        function addAnotherAccount() {
+            alert("Redirecionando para autenticação OAuth (Google / GitHub / Discord) para adicionar conta secundária...");
+        }
+
+        function removeAccount() {
+            if (confirm("Tem certeza que deseja remover esta conta vinculada?")) {
+                alert("Conta desvinculada com sucesso.");
+                toggleProfileModal();
+            }
+        }
+
+        // --- RANKING LOGIC & CRITÉRIOS DE ORDENAÇÃO ---
+        function updateUserInRanking() {
+            const me = rankingUsers.find(u => u.isMe);
+            if (me) {
+                me.name = currentUser.name;
+                me.avatar = currentUser.avatar;
+                me.currentEnigma = currentUser.currentEnigma;
+                me.totalTimeSeconds = currentUser.totalTimeSeconds;
+            }
+        }
+
+        function renderRanking() {
+            updateUserInRanking();
+
+            // ORDENAÇÃO CONFORME SOLICITADO:
+            // 1. Maior número do enigma atual (quem parou mais à frente fica em cima)
+            // 2. Em caso de empate no enigma, menor tempo total somado fica em cima
+            rankingUsers.sort((a, b) => {
+                if (b.currentEnigma !== a.currentEnigma) {
+                    return b.currentEnigma - a.currentEnigma; // Maior enigma primeiro
+                }
+                return a.totalTimeSeconds - b.totalTimeSeconds; // Menor tempo primeiro
+            });
+
+            const tbody = document.getElementById('ranking-table-body');
+            tbody.innerHTML = '';
+
+            rankingUsers.forEach((user, index) => {
+                const pos = index + 1;
+                let badgeColor = "text-gray-400";
+                if (pos === 1) badgeColor = "text-yellow-400 font-bold neon-blue";
+                if (pos === 2) badgeColor = "text-gray-300 font-bold";
+                if (pos === 3) badgeColor = "text-amber-600 font-bold";
+
+                let mins = Math.floor(user.totalTimeSeconds / 60);
+                let secs = user.totalTimeSeconds % 60;
+                let timeFormatted = `${mins}m ${secs}s`;
+
+                let rowBg = user.isMe ? "bg-[#00f3ff]/5 border-l-2 border-[#00f3ff]" : "";
+
+                tbody.innerHTML += `
+                    <tr class="hover:bg-black/40 transition-colors ${rowBg}">
+                        <td class="py-4 px-6 font-cyber ${badgeColor}">#0${pos}</td>
+                        <td class="py-4 px-6 flex items-center space-x-3">
+                            <img src="${user.avatar}" alt="${user.name}" class="w-8 h-8 rounded-full object-cover border border-gray-700">
+                            <span class="font-bold ${user.isMe ? 'text-[#00f3ff]' : 'text-white'}">${user.name} ${user.isMe ? '(Você)' : ''}</span>
+                        </td>
+                        <td class="py-4 px-6 font-mono text-[#0eff86]">Enigma #${user.currentEnigma}</td>
+                        <td class="py-4 px-6 font-mono text-gray-300">${timeFormatted}</td>
+                        <td class="py-4 px-6 text-right">
+                            <span class="px-2.5 py-1 rounded-full text-xs font-cyber ${pos <= 3 ? 'bg-[#00f3ff]/10 text-[#00f3ff] border border-[#00f3ff]/30' : 'bg-gray-800 text-gray-400'}">
+                                ${pos === 1 ? 'Líder' : 'Ativo'}
+                            </span>
+                        </td>
+                    </tr>
+                `;
+            });
+        }
+    </script>
+</body>
+</html>
