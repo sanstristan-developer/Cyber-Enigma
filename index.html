@@ -252,7 +252,7 @@
                             <i class="fa-solid fa-stopwatch"></i>
                         </div>
                         <h3 class="font-cyber font-bold text-lg text-[#0eff86]">Ranking Nacional & Tempo</h3>
-                        <p class="text-gray-400 text-sm leading-relaxed">O ranking avalia primariamente o <strong>número do enigma</strong> em que você está. Em caso de empate, o <strong>tempo total somado</strong> de conclusão decide sua posição. Seja rápido!</p>
+                        <p class="text-gray-400 text-sm leading-relaxed">O ranking avalia primariamente o <strong>último enigma concluído</strong>. Em caso de empate, o <strong>tempo total somado</strong> decide sua posição. Seja rápido!</p>
                     </div>
                 </div>
             </div>
@@ -273,7 +273,7 @@
             <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
                 <div>
                     <h1 class="font-cyber text-3xl font-extrabold tracking-wider text-[#0eff86] neon-green">RANKING NACIONAL</h1>
-                    <p class="text-gray-400 text-sm">Classificação baseada no Enigma atual e menor tempo total acumulado.</p>
+                    <p class="text-gray-400 text-sm">Classificação baseada nos enigmas concluídos e menor tempo total acumulado.</p>
                 </div>
                 <div class="bg-[#0b0f19] border border-gray-800 px-4 py-2 rounded-xl flex items-center space-x-3 text-xs text-gray-400">
                     <span class="flex items-center space-x-1.5"><span class="w-2.5 h-2.5 rounded-full bg-[#0eff86]"></span><span>Menor tempo = Melhor posição em empate</span></span>
@@ -288,7 +288,7 @@
                             <tr class="border-b border-gray-800 text-gray-400 font-cyber text-xs tracking-wider bg-black/40">
                                 <th class="py-4 px-6">Posição</th>
                                 <th class="py-4 px-6">Usuário</th>
-                                <th class="py-4 px-6">Enigma Atual</th>
+                                <th class="py-4 px-6">Enigma Atual no Ranking</th>
                                 <th class="py-4 px-6">Tempo Total Somado</th>
                                 <th class="py-4 px-6 text-right">Status</th>
                             </tr>
@@ -532,7 +532,8 @@
             name: "Alex Hacker",
             avatar: "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=150&q=80",
             email: "alex.hacker@cybermail.com",
-            currentEnigma: 1,
+            currentEnigma: 1, // Usuário começa no Enigma #1 ao jogar
+            completedEnigmas: 0, // 0 enigmas concluídos inicialmente
             totalTimeSeconds: 0
         };
 
@@ -541,7 +542,7 @@
                 id: 1,
                 title: "O Despertar da IA",
                 type: "text",
-                content: "Sou feito de zeros e uns, não tenho corpo mas posso pensar. Viajo pela rede na velocidade da luz. Qual é a palavra-chave que comanda o meu núcleo? (Dica: A resposta tem 5 letras: COREX)",
+                content: "Sou feito de zeros e uns, não tenho corpo mas posso pensar. Viajo pela rede na velocidade da luz. Qual é a palavra-chave que comanda o meu núcleo? (Dica: A resposta has 5 letras: COREX)",
                 answer: "COREX",
                 hints: [
                     "A primeira letra é C.",
@@ -589,11 +590,11 @@
         ];
 
         let rankingUsers = [
-            { id: 1, name: "CyberQueen", avatar: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=150&q=80", currentEnigma: 4, totalTimeSeconds: 145, isMe: false, isOnline: true },
-            { id: 2, name: "NeoMatrix", avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=150&q=80", currentEnigma: 4, totalTimeSeconds: 210, isMe: false, isOnline: false },
-            { id: 3, name: "Alex Hacker", avatar: currentUser.avatar, currentEnigma: currentUser.currentEnigma, totalTimeSeconds: currentUser.totalTimeSeconds, isMe: true, isOnline: true },
-            { id: 4, name: "GlitchBoy", avatar: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=150&q=80", currentEnigma: 2, totalTimeSeconds: 90, isMe: false, isOnline: false },
-            { id: 5, name: "ZeroCool", avatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=150&q=80", currentEnigma: 1, totalTimeSeconds: 45, isMe: false, isOnline: true }
+            { id: 1, name: "CyberQueen", avatar: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=150&q=80", completedEnigmas: 4, totalTimeSeconds: 145, isMe: false, isOnline: true },
+            { id: 2, name: "NeoMatrix", avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=150&q=80", completedEnigmas: 4, totalTimeSeconds: 210, isMe: false, isOnline: false },
+            { id: 3, name: "Alex Hacker", avatar: currentUser.avatar, completedEnigmas: currentUser.completedEnigmas, totalTimeSeconds: currentUser.totalTimeSeconds, isMe: true, isOnline: true },
+            { id: 4, name: "GlitchBoy", avatar: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=150&q=80", completedEnigmas: 2, totalTimeSeconds: 90, isMe: false, isOnline: false },
+            { id: 5, name: "ZeroCool", avatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=150&q=80", completedEnigmas: 1, totalTimeSeconds: 45, isMe: false, isOnline: true }
         ];
 
         let sessionSeconds = 0;
@@ -665,7 +666,7 @@
                 stopTimer();
                 document.getElementById('section-enigmas').innerHTML = `
                     <div class="bg-[#0b0f19] border border-[#0eff86]/50 rounded-2xl p-8 text-center space-y-6 box-neon-green">
-                        <div class="w-16 h-16 rounded-2xl bg-[#0eff86]/20 mx-auto flex items-center justify-center text-[#0eff86] text-3xl">
+                        <div class="w-16 h-16 rounded-2xl bg-[#eff86]/20 mx-auto flex items-center justify-center text-[#0eff86] text-3xl">
                             <i class="fa-solid fa-trophy"></i>
                         </div>
                         <h2 class="font-cyber text-2xl font-bold text-[#0eff86]">PARABÉNS! VOCÊ ZEROU OS ENIGMAS</h2>
@@ -704,6 +705,7 @@
                 feedback.className = "text-xs font-mono text-[#0eff86] font-bold";
                 feedback.innerText = "⚡ Resposta correta! Transferindo para o próximo enigma...";
                 
+                currentUser.completedEnigmas++; // Incrementa os enigmas concluídos contados no ranking
                 currentUser.currentEnigma++;
                 updateUserInRanking();
 
@@ -824,7 +826,7 @@
             if (me) {
                 me.name = currentUser.name;
                 me.avatar = currentUser.avatar;
-                me.currentEnigma = currentUser.currentEnigma;
+                me.completedEnigmas = currentUser.completedEnigmas;
                 me.totalTimeSeconds = currentUser.totalTimeSeconds;
                 me.isOnline = true;
             }
@@ -834,8 +836,8 @@
             updateUserInRanking();
 
             rankingUsers.sort((a, b) => {
-                if (b.currentEnigma !== a.currentEnigma) {
-                    return b.currentEnigma - a.currentEnigma;
+                if (b.completedEnigmas !== a.completedEnigmas) {
+                    return b.completedEnigmas - a.completedEnigmas;
                 }
                 return a.totalTimeSeconds - b.totalTimeSeconds;
             });
@@ -861,6 +863,9 @@
                     ? `<span class="px-2.5 py-1 rounded-full text-xs font-cyber bg-[#0eff86]/10 text-[#0eff86] border border-[#0eff86]/30 flex items-center justify-center space-x-1.5 w-max ml-auto"><span class="w-1.5 h-1.5 rounded-full bg-[#0eff86] animate-pulse"></span><span>Online</span></span>`
                     : `<span class="px-2.5 py-1 rounded-full text-xs font-cyber bg-gray-800 text-gray-400 border border-gray-700 flex items-center justify-center space-x-1.5 w-max ml-auto"><span class="w-1.5 h-1.5 rounded-full bg-gray-500"></span><span>Offline</span></span>`;
 
+                // Exibição condicional no ranking: se completou 0, mostra Enigma #0. Senão, mostra o último concluído.
+                let displayEnigmaRank = user.completedEnigmas === 0 ? "Enigma #0" : `Enigma #${user.completedEnigmas}`;
+
                 tbody.innerHTML += `
                     <tr class="hover:bg-black/40 transition-colors ${rowBg}">
                         <td class="py-4 px-6 font-cyber ${badgeColor}">#0${pos}</td>
@@ -868,7 +873,7 @@
                             <img src="${user.avatar}" alt="${user.name}" class="w-8 h-8 rounded-full object-cover border border-gray-700">
                             <span class="font-bold ${user.isMe ? 'text-[#00f3ff]' : 'text-white'}">${user.name} ${user.isMe ? '(Você)' : ''}</span>
                         </td>
-                        <td class="py-4 px-6 font-mono text-[#0eff86]">Enigma #${user.currentEnigma}</td>
+                        <td class="py-4 px-6 font-mono text-[#0eff86]">${displayEnigmaRank}</td>
                         <td class="py-4 px-6 font-mono text-gray-300">${timeFormatted}</td>
                         <td class="py-4 px-6 text-right">
                             ${statusBadge}
