@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Enigma Cyber - Plataforma de Desafios</title>
+    <link rel="icon" type="image/png" href="favicon.png">
+    <title>Enigma Cyber</title>
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <!-- FontAwesome for Icons -->
@@ -62,6 +63,7 @@
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
+
         /* Custom scrollbar */
         ::-webkit-scrollbar {
             width: 8px;
@@ -77,6 +79,37 @@
         ::-webkit-scrollbar-thumb:hover {
             background: #374151;
         }
+
+        /* ANIMAÇÃO DA AMPULHETA E AREIA CAINDO */
+        @keyframes sandStream {
+            0% {
+                stroke-dashoffset: 16;
+            }
+            100% {
+                stroke-dashoffset: 0;
+            }
+        }
+        @keyframes sandTop {
+            0% { opacity: 1; transform: scaleY(1); }
+            100% { opacity: 0.2; transform: scaleY(0.1); }
+        }
+        @keyframes sandBottom {
+            0% { transform: scaleY(0.1); }
+            100% { transform: scaleY(1); }
+        }
+
+        .sand-stream-line {
+            stroke-dasharray: 4, 4;
+            animation: sandStream 0.6s linear infinite;
+        }
+        .sand-top-fill {
+            transform-origin: bottom center;
+            animation: sandTop 3s ease-in-out infinite alternate;
+        }
+        .sand-bottom-fill {
+            transform-origin: bottom center;
+            animation: sandBottom 3s ease-in-out infinite alternate;
+        }
     </style>
 </head>
 <body class="min-h-screen flex flex-col bg-[#050508] text-gray-100 selection:bg-[#00f3ff] selection:text-black relative">
@@ -88,14 +121,40 @@
     <header class="relative z-20 w-full px-6 py-5 border-b border-gray-800/80 bg-black/60 backdrop-blur-md">
         <div class="max-w-7xl mx-auto flex items-center justify-between">
             
-            <!-- Logo / Brand -->
-            <div class="flex items-center space-x-3 cursor-pointer" onclick="switchTab('enigmas')">
-                <div class="w-10 h-10 rounded-xl gradient-bg p-[2px] flex items-center justify-center shadow-lg shadow-[#bc13fe]/30">
-                    <div class="w-full h-full bg-black rounded-[10px] flex items-center justify-center">
-                        <i class="fa-solid fa-brain gradient-text text-lg"></i>
+            <!-- ESQUERDA: TIMER DE 365 DIAS (AMPULHETA CLICÁVEL) + LOGO DA PLATAFORMA -->
+            <div class="flex items-center space-x-3 sm:space-x-5">
+                
+                <!-- TEMPORIZADOR DE AMPULHETA (CLICÁVEL) -->
+                <div onclick="openPrizeModal()" title="Clique para ver detalhes do prêmio misterioso" class="cursor-pointer group flex items-center space-x-2 bg-gradient-to-r from-red-950/40 via-purple-950/30 to-black/60 border border-red-500/40 hover:border-[#00f3ff] px-3 py-1.5 rounded-xl shadow-md shadow-red-900/20 transition-all duration-300">
+                    <!-- Ícone Vetorial de Ampulheta com Areia Animada -->
+                    <div class="w-5 h-6 relative flex items-center justify-center shrink-0">
+                        <svg class="w-full h-full text-[#00f3ff] group-hover:scale-110 transition-transform" viewBox="0 0 24 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <!-- Estrutura da Ampulheta -->
+                            <path d="M4 2H20M4 26H20M5 2L11.2 12.8C11.6 13.5 11.6 14.5 11.2 15.2L5 26M19 2L12.8 12.8C12.4 13.5 12.4 14.5 12.8 15.2L19 26" stroke="#00f3ff" stroke-width="2" stroke-linecap="round"/>
+                            <!-- Areia Superior -->
+                            <polygon points="7,5 17,5 12,12" fill="#bc13fe" class="sand-top-fill" />
+                            <!-- Filete de Areia Caindo -->
+                            <line x1="12" y1="12" x2="12" y2="20" stroke="#0eff86" stroke-width="1.5" class="sand-stream-line"/>
+                            <!-- Areia Inferior -->
+                            <polygon points="6,24 18,24 12,18" fill="#0eff86" class="sand-bottom-fill" />
+                        </svg>
+                    </div>
+                    <!-- Contador de Dias -->
+                    <div class="flex flex-col leading-none">
+                        <span id="site-countdown-days" class="font-cyber font-bold text-sm sm:text-base text-red-400 group-hover:text-[#00f3ff] transition-colors tracking-wider">365</span>
+                        <span class="text-[8px] font-mono uppercase text-gray-400 tracking-widest">dias rest.</span>
                     </div>
                 </div>
-                <span class="font-cyber font-bold text-xl tracking-wider gradient-text">CYBER<span class="text-white">ENIGMA</span></span>
+
+                <!-- Logo / Brand -->
+                <div class="flex items-center space-x-3 cursor-pointer" onclick="switchTab('enigmas')">
+                    <div class="w-10 h-10 rounded-xl gradient-bg p-[2px] flex items-center justify-center shadow-lg shadow-[#bc13fe]/30">
+                        <div class="w-full h-full bg-black rounded-[10px] flex items-center justify-center">
+                            <i class="fa-solid fa-brain gradient-text text-lg"></i>
+                        </div>
+                    </div>
+                    <span class="font-cyber font-bold text-xl tracking-wider gradient-text hidden sm:inline">CYBER<span class="text-white">ENIGMA</span></span>
+                </div>
             </div>
 
             <!-- CARDS NA PARTE SUPERIOR CENTRAL -->
@@ -127,7 +186,6 @@
                     </div>
                     <div class="text-left hidden sm:block">
                         <div id="header-username" class="text-xs font-bold text-gray-200 truncate max-w-[100px]">Alex Hacker</div>
-                        <div class="text-[10px] text-[#0eff86] font-mono">Enigma #3</div>
                     </div>
                     <i class="fa-solid fa-chevron-down text-xs text-gray-400 group-hover:text-white transition-transform"></i>
                 </button>
@@ -154,11 +212,11 @@
     <!-- MAIN CONTAINER -->
     <main class="relative z-10 flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 py-8">
 
-        <!-- ================= SECTION: COMO FUNCIONA ================= -->
-        <section id="section-como-funciona" class="tab-section hidden space-y-8 animate-fadeIn">
+        <!-- ================= SECTION: COMO FUNCIONA (JÁ COMEÇA SEM 'hidden') ================= -->
+        <section id="section-como-funciona" class="tab-section space-y-8 animate-fadeIn">
             <div class="text-center max-w-3xl mx-auto space-y-4">
                 <h1 class="font-cyber text-3xl sm:text-4xl font-extrabold tracking-wider gradient-text">COMO FUNCIONA A PLATAFORMA</h1>
-                <p class="text-gray-400 text-sm sm:text-base">Mergulhe no submundo dos enigmas cibernéticos. Desvende códigos, decifre imagens, compre dicas e suba no ranking nacional.</p>
+                <p class="text-gray-400 text-sm sm:text-base">Mergulhe no submundo dos enigmas cibernéticos. Desvende códigos, decifre imagens, suba no ranking nacional e dispute um prêmio misterioso.</p>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6 pt-4">
@@ -244,8 +302,8 @@
         </section>
 
 
-        <!-- ================= SECTION: ENIGMAS ================= -->
-        <section id="section-enigmas" class="tab-section space-y-6 animate-fadeIn max-w-4xl mx-auto">
+        <!-- ================= SECTION: ENIGMAS (JÁ COMEÇA COM 'hidden') ================= -->
+        <section id="section-enigmas" class="tab-section hidden space-y-6 animate-fadeIn max-w-4xl mx-auto">
             
             <!-- Top bar do Enigma: Número e Temporizador -->
             <div class="flex items-center justify-between bg-[#0b0f19] border border-gray-800 rounded-2xl p-4 sm:px-6">
@@ -313,6 +371,37 @@
         </section>
 
     </main>
+
+    <!-- ================= MODAL DO PRÊMIO MISTERIOSO (POPUP DA AMPULHETA) ================= -->
+    <div id="prize-modal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm hidden animate-fadeIn">
+        <div class="bg-[#0b0f19] border border-[#00f3ff]/50 rounded-2xl w-full max-w-md p-6 sm:p-8 m-4 space-y-6 box-neon-blue relative text-center">
+            
+            <!-- Ícone superior brilhante -->
+            <div class="w-16 h-16 rounded-2xl bg-[#00f3ff]/20 border border-[#00f3ff]/40 mx-auto flex items-center justify-center text-[#00f3ff] text-3xl shadow-lg shadow-[#00f3ff]/20">
+                <i class="fa-solid fa-trophy"></i>
+            </div>
+
+            <!-- Título e Texto -->
+            <div class="space-y-3">
+                <h3 class="font-cyber font-extrabold text-white text-xl gradient-text">PRÊMIO MISTERIOSO</h3>
+                <p class="text-gray-300 text-sm leading-relaxed">
+                    O prêmio misterioso será entregue àquele que estiver no <strong class="text-[#0eff86]">Top 1 do ranking</strong> quando o tempo calculado pela ampulheta acabar!
+                </p>
+            </div>
+
+            <!-- Tempo Restante exibido na modal -->
+            <div class="bg-black/60 border border-gray-800 p-3 rounded-xl flex items-center justify-center space-x-2 font-mono text-sm">
+                <span class="text-gray-400">Tempo Restante Atual:</span>
+                <span id="modal-days-left" class="text-red-400 font-bold">365 dias</span>
+            </div>
+
+            <!-- Botão de Fechar -->
+            <button onclick="closePrizeModal()" class="w-full py-3 rounded-xl gradient-bg text-black font-cyber font-bold text-sm tracking-wider hover:opacity-90 transition-opacity shadow-lg shadow-[#00f3ff]/20">
+                ENTENDIDO
+            </button>
+        </div>
+    </div>
+
 
     <!-- ================= MODAL DE DICAS (R$ 0,10) ================= -->
     <div id="hints-modal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm hidden animate-fadeIn">
@@ -400,11 +489,7 @@
                 <div class="flex gap-2">
                     <button onclick="switchAccount()" class="px-4 py-2 rounded-xl bg-gray-800 hover:bg-gray-700 text-gray-200 text-xs font-cyber font-bold transition-colors flex items-center space-x-2">
                         <i class="fa-solid fa-right-left"></i>
-                        <span>Alterar Conta</span>
-                    </button>
-                    <button onclick="addAnotherAccount()" class="px-4 py-2 rounded-xl bg-[#bc13fe]/20 hover:bg-[#bc13fe]/30 border border-[#bc13fe]/40 text-[#bc13fe] text-xs font-cyber font-bold transition-colors flex items-center space-x-2">
-                        <i class="fa-solid fa-user-plus"></i>
-                        <span>Adicionar Outra</span>
+                        <span>Adicionar/Alterar Conta</span>
                     </button>
                 </div>
                 <button onclick="removeAccount()" class="px-4 py-2 rounded-xl bg-red-500/10 hover:bg-red-500/20 border border-red-500/30 text-red-400 text-xs font-cyber font-bold transition-colors flex items-center space-x-2">
@@ -418,6 +503,43 @@
 
     <!-- JAVASCRIPT LOGIC -->
     <script>
+        // --- LOGICA DO TEMPORIZADOR DIÁRIO DO SITE (365 DIAS) E MODAL DO PRÊMIO ---
+        let currentRemainingDays = 365;
+
+        function initSiteCountdown() {
+            const INITIAL_DAYS = 365;
+            let startDateStr = localStorage.getItem('site_start_date');
+
+            if (!startDateStr) {
+                const now = new Date();
+                localStorage.setItem('site_start_date', now.toISOString());
+                startDateStr = now.toISOString();
+            }
+
+            const startDate = new Date(startDateStr);
+            const currentDate = new Date();
+
+            const diffTime = Math.abs(currentDate - startDate);
+            const daysPassed = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+
+            currentRemainingDays = INITIAL_DAYS - daysPassed;
+            if (currentRemainingDays < 0) currentRemainingDays = 0;
+
+            const daysDisplay = document.getElementById('site-countdown-days');
+            if (daysDisplay) {
+                daysDisplay.innerText = currentRemainingDays;
+            }
+        }
+
+        function openPrizeModal() {
+            document.getElementById('modal-days-left').innerText = `${currentRemainingDays} dias`;
+            document.getElementById('prize-modal').classList.remove('hidden');
+        }
+
+        function closePrizeModal() {
+            document.getElementById('prize-modal').classList.add('hidden');
+        }
+
         // --- DADOS DO JOGO E ESTADO ---
         let currentUser = {
             name: "Alex Hacker",
@@ -496,6 +618,7 @@
 
         // --- INICIALIZAÇÃO ---
         window.onload = function() {
+            initSiteCountdown();
             startTimer();
             loadEnigma(currentUser.currentEnigma);
             renderRanking();
@@ -549,14 +672,25 @@
                 let mins = Math.floor(sessionSeconds / 60);
                 let secs = sessionSeconds % 60;
                 let formatted = `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
-                document.getElementById('enigma-timer').innerText = formatted;
+                const timerEl = document.getElementById('enigma-timer');
+                if (timerEl) timerEl.innerText = formatted;
             }, 1000);
+        }
+
+        function stopTimer() {
+            if (timerInterval) {
+                clearInterval(timerInterval);
+                timerInterval = null;
+            }
         }
 
         // --- CARREGAR ENIGMA ---
         function loadEnigma(enigmaNum) {
             const enigma = enigmas.find(e => e.id === enigmaNum);
             if (!enigma) {
+                // Parar o temporizador ao concluir todos os enigmas
+                stopTimer();
+
                 // Fim de todos os enigmas
                 document.getElementById('section-enigmas').innerHTML = `
                     <div class="bg-[#0b0f19] border border-[#0eff86]/50 rounded-2xl p-8 text-center space-y-6 box-neon-green">
@@ -738,14 +872,11 @@
         function renderRanking() {
             updateUserInRanking();
 
-            // ORDENAÇÃO CONFORME SOLICITADO:
-            // 1. Maior número do enigma atual (quem parou mais à frente fica em cima)
-            // 2. Em caso de empate no enigma, menor tempo total somado fica em cima
             rankingUsers.sort((a, b) => {
                 if (b.currentEnigma !== a.currentEnigma) {
-                    return b.currentEnigma - a.currentEnigma; // Maior enigma primeiro
+                    return b.currentEnigma - a.currentEnigma;
                 }
-                return a.totalTimeSeconds - b.totalTimeSeconds; // Menor tempo primeiro
+                return a.totalTimeSeconds - b.totalTimeSeconds;
             });
 
             const tbody = document.getElementById('ranking-table-body');
@@ -783,5 +914,5 @@
             });
         }
     </script>
-</body>
+  </body>
 </html>
