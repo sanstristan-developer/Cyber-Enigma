@@ -192,7 +192,7 @@
             </div>
         </div>
 
-        <!-- Mobile Nav Menu (Cards embaixo no mobile) -->
+        <!-- Mobile Nav Menu -->
         <div class="flex md:hidden items-center justify-around mt-4 pt-3 border-t border-gray-800/60">
             <button onclick="switchTab('como-funciona')" id="mob-nav-como-funciona" class="mob-nav font-cyber text-xs uppercase text-[#00f3ff] flex flex-col items-center space-y-1">
                 <i class="fa-solid fa-circle-question text-base"></i>
@@ -212,7 +212,7 @@
     <!-- MAIN CONTAINER -->
     <main class="relative z-10 flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 py-8">
 
-        <!-- ================= SECTION: COMO FUNCIONA (JÁ COMEÇA SEM 'hidden') ================= -->
+        <!-- ================= SECTION: COMO FUNCIONA ================= -->
         <section id="section-como-funciona" class="tab-section space-y-8 animate-fadeIn">
             <div class="text-center max-w-3xl mx-auto space-y-4">
                 <h1 class="font-cyber text-3xl sm:text-4xl font-extrabold tracking-wider gradient-text">COMO FUNCIONA A PLATAFORMA</h1>
@@ -302,10 +302,10 @@
         </section>
 
 
-        <!-- ================= SECTION: ENIGMAS (JÁ COMEÇA COM 'hidden') ================= -->
+        <!-- ================= SECTION: ENIGMAS ================= -->
         <section id="section-enigmas" class="tab-section hidden space-y-6 animate-fadeIn max-w-4xl mx-auto">
             
-            <!-- Top bar do Enigma: Número e Temporizador -->
+            <!-- Top bar do Enigma -->
             <div class="flex items-center justify-between bg-[#0b0f19] border border-gray-800 rounded-2xl p-4 sm:px-6">
                 <div class="flex items-center space-x-3">
                     <div class="w-10 h-10 rounded-xl bg-[#bc13fe]/20 border border-[#bc13fe]/40 flex items-center justify-center text-[#bc13fe] font-cyber font-bold">
@@ -333,11 +333,10 @@
                 </div>
             </div>
 
-            <!-- Caixa de Conteúdo do Enigma (Texto / Imagem) -->
+            <!-- Caixa de Conteúdo do Enigma -->
             <div class="bg-[#0b0f19] border border-gray-800 rounded-2xl p-6 sm:p-8 space-y-6 relative overflow-hidden box-neon-purple">
                 <div class="absolute top-0 right-0 w-32 h-32 bg-[#bc13fe]/5 rounded-full blur-3xl pointer-events-none"></div>
                 
-                <!-- Descrição / Texto do Enigma -->
                 <div id="enigma-text-container" class="space-y-4">
                     <h2 id="enigma-question-title" class="font-cyber text-xl font-bold text-white">O Despertar da IA</h2>
                     <p id="enigma-question-desc" class="text-gray-300 text-sm sm:text-base leading-relaxed">
@@ -345,12 +344,10 @@
                     </p>
                 </div>
 
-                <!-- Imagem do Enigma (se houver) -->
                 <div id="enigma-image-container" class="hidden rounded-xl overflow-hidden border border-gray-800 max-h-80 bg-black flex items-center justify-center">
                     <img id="enigma-img" src="" alt="Enigma Imagem" class="object-contain max-h-80 w-full">
                 </div>
 
-                <!-- Barra de Resposta -->
                 <div class="pt-4 border-t border-gray-800/80 space-y-3">
                     <label class="block text-xs font-cyber tracking-wider text-gray-400 uppercase">Insira a Resposta Correta</label>
                     <form onsubmit="submitAnswer(event)" class="flex flex-col sm:flex-row gap-3">
@@ -372,16 +369,14 @@
 
     </main>
 
-    <!-- ================= MODAL DO PRÊMIO MISTERIOSO (POPUP DA AMPULHETA) ================= -->
+    <!-- ================= MODAL DO PRÊMIO MISTERIOSO ================= -->
     <div id="prize-modal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm hidden animate-fadeIn">
         <div class="bg-[#0b0f19] border border-[#00f3ff]/50 rounded-2xl w-full max-w-md p-6 sm:p-8 m-4 space-y-6 box-neon-blue relative text-center">
             
-            <!-- Ícone superior brilhante -->
             <div class="w-16 h-16 rounded-2xl bg-[#00f3ff]/20 border border-[#00f3ff]/40 mx-auto flex items-center justify-center text-[#00f3ff] text-3xl shadow-lg shadow-[#00f3ff]/20">
                 <i class="fa-solid fa-trophy"></i>
             </div>
 
-            <!-- Título e Texto -->
             <div class="space-y-3">
                 <h3 class="font-cyber font-extrabold text-white text-xl gradient-text">PRÊMIO MISTERIOSO</h3>
                 <p class="text-gray-300 text-sm leading-relaxed">
@@ -389,13 +384,11 @@
                 </p>
             </div>
 
-            <!-- Tempo Restante exibido na modal -->
             <div class="bg-black/60 border border-gray-800 p-3 rounded-xl flex items-center justify-center space-x-2 font-mono text-sm">
                 <span class="text-gray-400">Tempo Restante Atual:</span>
                 <span id="modal-days-left" class="text-red-400 font-bold">365 dias</span>
             </div>
 
-            <!-- Botão de Fechar -->
             <button onclick="closePrizeModal()" class="w-full py-3 rounded-xl gradient-bg text-black font-cyber font-bold text-sm tracking-wider hover:opacity-90 transition-opacity shadow-lg shadow-[#00f3ff]/20">
                 ENTENDIDO
             </button>
@@ -403,7 +396,7 @@
     </div>
 
 
-    <!-- ================= MODAL DE DICAS (R$ 0,10) ================= -->
+    <!-- ================= MODAL DE DICAS ================= -->
     <div id="hints-modal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm hidden animate-fadeIn">
         <div class="bg-[#0b0f19] border border-[#bc13fe]/50 rounded-2xl w-full max-w-md p-6 m-4 space-y-6 box-neon-purple relative">
             <div class="flex items-center justify-between border-b border-gray-800 pb-4">
@@ -421,7 +414,6 @@
                 </button>
             </div>
 
-            <!-- Lista de Dicas -->
             <div id="hints-list" class="space-y-3">
                 <!-- Preenchido via JS -->
             </div>
@@ -433,7 +425,7 @@
     </div>
 
 
-    <!-- ================= MODAL DE PERFIL DO USUÁRIO ================= -->
+    <!-- ================= MODAL DE PERFIL ================= -->
     <div id="profile-modal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm hidden animate-fadeIn">
         <div class="bg-[#0b0f19] border border-[#00f3ff]/50 rounded-2xl w-full max-w-lg p-6 sm:p-8 m-4 space-y-6 box-neon-blue relative">
             <div class="flex items-center justify-between border-b border-gray-800 pb-4">
@@ -451,7 +443,6 @@
                 </button>
             </div>
 
-            <!-- Foto de Perfil e Alteração -->
             <div class="flex flex-col sm:flex-row items-center space-y-4 sm:space-y-0 sm:space-x-6 bg-black/40 p-4 rounded-xl border border-gray-800">
                 <div class="relative w-20 h-20 rounded-full overflow-hidden border-2 border-[#00f3ff] shadow-lg">
                     <img id="modal-avatar-preview" src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=150&q=80" alt="Avatar" class="w-full h-full object-cover">
@@ -465,7 +456,6 @@
                 </div>
             </div>
 
-            <!-- Dados Cadastrais & Conta Vinculada -->
             <div class="space-y-4">
                 <div class="space-y-1">
                     <label class="text-xs font-cyber text-gray-400 uppercase">Nome de Usuário</label>
@@ -484,7 +474,6 @@
                 </div>
             </div>
 
-            <!-- Ações da Conta: Alterar, Remover, Adicionar outra -->
             <div class="pt-4 border-t border-gray-800 flex flex-wrap gap-3 justify-between">
                 <div class="flex gap-2">
                     <button onclick="switchAccount()" class="px-4 py-2 rounded-xl bg-gray-800 hover:bg-gray-700 text-gray-200 text-xs font-cyber font-bold transition-colors flex items-center space-x-2">
@@ -503,7 +492,6 @@
 
     <!-- JAVASCRIPT LOGIC -->
     <script>
-        // --- LOGICA DO TEMPORIZADOR DIÁRIO DO SITE (365 DIAS) E MODAL DO PRÊMIO ---
         let currentRemainingDays = 365;
 
         function initSiteCountdown() {
@@ -540,16 +528,14 @@
             document.getElementById('prize-modal').classList.add('hidden');
         }
 
-        // --- DADOS DO JOGO E ESTADO ---
         let currentUser = {
             name: "Alex Hacker",
             avatar: "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=150&q=80",
             email: "alex.hacker@cybermail.com",
             currentEnigma: 1,
-            totalTimeSeconds: 0 // Tempo total somado em segundos
+            totalTimeSeconds: 0
         };
 
-        // Lista de Enigmas
         const enigmas = [
             {
                 id: 1,
@@ -602,21 +588,18 @@
             }
         ];
 
-        // Lista de Usuários no Ranking (Simulados)
         let rankingUsers = [
-            { id: 1, name: "CyberQueen", avatar: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=150&q=80", currentEnigma: 4, totalTimeSeconds: 145, isMe: false },
-            { id: 2, name: "NeoMatrix", avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=150&q=80", currentEnigma: 4, totalTimeSeconds: 210, isMe: false },
-            { id: 3, name: "Alex Hacker", avatar: currentUser.avatar, currentEnigma: currentUser.currentEnigma, totalTimeSeconds: currentUser.totalTimeSeconds, isMe: true },
-            { id: 4, name: "GlitchBoy", avatar: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=150&q=80", currentEnigma: 2, totalTimeSeconds: 90, isMe: false },
-            { id: 5, name: "ZeroCool", avatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=150&q=80", currentEnigma: 1, totalTimeSeconds: 45, isMe: false }
+            { id: 1, name: "CyberQueen", avatar: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=150&q=80", currentEnigma: 4, totalTimeSeconds: 145, isMe: false, isOnline: true },
+            { id: 2, name: "NeoMatrix", avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=150&q=80", currentEnigma: 4, totalTimeSeconds: 210, isMe: false, isOnline: false },
+            { id: 3, name: "Alex Hacker", avatar: currentUser.avatar, currentEnigma: currentUser.currentEnigma, totalTimeSeconds: currentUser.totalTimeSeconds, isMe: true, isOnline: true },
+            { id: 4, name: "GlitchBoy", avatar: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=150&q=80", currentEnigma: 2, totalTimeSeconds: 90, isMe: false, isOnline: false },
+            { id: 5, name: "ZeroCool", avatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=150&q=80", currentEnigma: 1, totalTimeSeconds: 45, isMe: false, isOnline: true }
         ];
 
-        // Controle de Temporizador do Enigma Atual
         let sessionSeconds = 0;
         let timerInterval = null;
-        let unlockedHints = {}; // { enigmaId: [0, 1] }
+        let unlockedHints = {};
 
-        // --- INICIALIZAÇÃO ---
         window.onload = function() {
             initSiteCountdown();
             startTimer();
@@ -624,15 +607,10 @@
             renderRanking();
         };
 
-        // --- SISTEMA DE ABAS (TABS) ---
         function switchTab(tabName) {
-            // Esconder todas as seções
             document.querySelectorAll('.tab-section').forEach(sec => sec.classList.add('hidden'));
-            
-            // Mostrar seção selecionada
             document.getElementById(`section-${tabName}`).classList.remove('hidden');
 
-            // Atualizar classes dos cards superiores (Desktop)
             document.querySelectorAll('.nav-card').forEach(btn => {
                 btn.className = "nav-card px-6 py-2.5 rounded-xl font-cyber text-sm tracking-wider uppercase transition-all duration-300 bg-[#0b0f19] border border-gray-800 text-gray-400 flex items-center space-x-2";
             });
@@ -649,7 +627,6 @@
                 }
             }
 
-            // Atualizar navegação mobile
             document.querySelectorAll('.mob-nav').forEach(btn => {
                 btn.className = "mob-nav font-cyber text-xs uppercase text-gray-400 flex flex-col items-center space-y-1";
             });
@@ -661,14 +638,12 @@
             }
         }
 
-        // --- CRONÔMETRO ---
         function startTimer() {
             if (timerInterval) clearInterval(timerInterval);
             timerInterval = setInterval(() => {
                 sessionSeconds++;
                 currentUser.totalTimeSeconds++;
                 
-                // Formatar MM:SS
                 let mins = Math.floor(sessionSeconds / 60);
                 let secs = sessionSeconds % 60;
                 let formatted = `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
@@ -684,14 +659,10 @@
             }
         }
 
-        // --- CARREGAR ENIGMA ---
         function loadEnigma(enigmaNum) {
             const enigma = enigmas.find(e => e.id === enigmaNum);
             if (!enigma) {
-                // Parar o temporizador ao concluir todos os enigmas
                 stopTimer();
-
-                // Fim de todos os enigmas
                 document.getElementById('section-enigmas').innerHTML = `
                     <div class="bg-[#0b0f19] border border-[#0eff86]/50 rounded-2xl p-8 text-center space-y-6 box-neon-green">
                         <div class="w-16 h-16 rounded-2xl bg-[#0eff86]/20 mx-auto flex items-center justify-center text-[#0eff86] text-3xl">
@@ -723,7 +694,6 @@
             updateHintsBadge();
         }
 
-        // --- SUBMETER RESPOSTA ---
         function submitAnswer(event) {
             event.preventDefault();
             const inputVal = document.getElementById('answer-input').value.trim().toUpperCase();
@@ -734,14 +704,11 @@
                 feedback.className = "text-xs font-mono text-[#0eff86] font-bold";
                 feedback.innerText = "⚡ Resposta correta! Transferindo para o próximo enigma...";
                 
-                // Salvar tempo acumulado desta fase
                 currentUser.currentEnigma++;
-                
-                // Atualizar no ranking simulado
                 updateUserInRanking();
 
                 setTimeout(() => {
-                    sessionSeconds = 0; // Reiniciar cronômetro para o próximo enigma
+                    sessionSeconds = 0;
                     loadEnigma(currentUser.currentEnigma);
                 }, 1500);
             } else {
@@ -750,7 +717,6 @@
             }
         }
 
-        // --- SISTEMA DE DICAS (R$ 0,10) ---
         function openHintsModal() {
             const enigma = enigmas.find(e => e.id === currentUser.currentEnigma);
             if (!enigma) return;
@@ -807,7 +773,6 @@
             document.getElementById('hints-badge').innerText = remaining;
         }
 
-        // --- GERENCIAMENTO DE PERFIL ---
         function toggleProfileModal() {
             const modal = document.getElementById('profile-modal');
             modal.classList.toggle('hidden');
@@ -847,10 +812,6 @@
             }
         }
 
-        function addAnotherAccount() {
-            alert("Redirecionando para autenticação OAuth (Google / GitHub / Discord) para adicionar conta secundária...");
-        }
-
         function removeAccount() {
             if (confirm("Tem certeza que deseja remover esta conta vinculada?")) {
                 alert("Conta desvinculada com sucesso.");
@@ -858,7 +819,6 @@
             }
         }
 
-        // --- RANKING LOGIC & CRITÉRIOS DE ORDENAÇÃO ---
         function updateUserInRanking() {
             const me = rankingUsers.find(u => u.isMe);
             if (me) {
@@ -866,6 +826,7 @@
                 me.avatar = currentUser.avatar;
                 me.currentEnigma = currentUser.currentEnigma;
                 me.totalTimeSeconds = currentUser.totalTimeSeconds;
+                me.isOnline = true;
             }
         }
 
@@ -895,6 +856,11 @@
 
                 let rowBg = user.isMe ? "bg-[#00f3ff]/5 border-l-2 border-[#00f3ff]" : "";
 
+                // Status Online ou Offline com cores personalizadas
+                let statusBadge = user.isOnline 
+                    ? `<span class="px-2.5 py-1 rounded-full text-xs font-cyber bg-[#0eff86]/10 text-[#0eff86] border border-[#0eff86]/30 flex items-center justify-center space-x-1.5 w-max ml-auto"><span class="w-1.5 h-1.5 rounded-full bg-[#0eff86] animate-pulse"></span><span>Online</span></span>`
+                    : `<span class="px-2.5 py-1 rounded-full text-xs font-cyber bg-gray-800 text-gray-400 border border-gray-700 flex items-center justify-center space-x-1.5 w-max ml-auto"><span class="w-1.5 h-1.5 rounded-full bg-gray-500"></span><span>Offline</span></span>`;
+
                 tbody.innerHTML += `
                     <tr class="hover:bg-black/40 transition-colors ${rowBg}">
                         <td class="py-4 px-6 font-cyber ${badgeColor}">#0${pos}</td>
@@ -905,14 +871,12 @@
                         <td class="py-4 px-6 font-mono text-[#0eff86]">Enigma #${user.currentEnigma}</td>
                         <td class="py-4 px-6 font-mono text-gray-300">${timeFormatted}</td>
                         <td class="py-4 px-6 text-right">
-                            <span class="px-2.5 py-1 rounded-full text-xs font-cyber ${pos <= 3 ? 'bg-[#00f3ff]/10 text-[#00f3ff] border border-[#00f3ff]/30' : 'bg-gray-800 text-gray-400'}">
-                                ${pos === 1 ? 'Líder' : 'Ativo'}
-                            </span>
+                            ${statusBadge}
                         </td>
                     </tr>
                 `;
             });
         }
     </script>
-  </body>
+</body>
 </html>
