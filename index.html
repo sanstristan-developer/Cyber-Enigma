@@ -532,8 +532,8 @@
             name: "Alex Hacker",
             avatar: "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=150&q=80",
             email: "alex.hacker@cybermail.com",
-            currentEnigma: 1, // Usuário começa no Enigma #1 ao jogar
-            completedEnigmas: 0, // 0 enigmas concluídos inicialmente
+            currentEnigma: 1,
+            completedEnigmas: 0,
             totalTimeSeconds: 0
         };
 
@@ -603,14 +603,36 @@
 
         window.onload = function() {
             initSiteCountdown();
-            startTimer();
-            loadEnigma(currentUser.currentEnigma);
+            // Começa na aba "Como Funciona" por padrão ou qualquer outra que não seja Enigmas,
+            // garantindo que o cronômetro NÃO inicie sozinho ao carregar a página.
+            switchTab('como-funciona');
             renderRanking();
+
+            // Detecta se o usuário saiu do site / mudou de aba do navegador
+            document.addEventListener("visibilitychange", function() {
+                if (document.hidden) {
+                    stopTimer();
+                } else {
+                    // Se voltar e estiver na aba de enigmas, retoma o timer
+                    const activeSection = document.querySelector('.tab-section:not(.hidden)');
+                    if (activeSection && activeSection.id === 'section-enigmas') {
+                        startTimer();
+                    }
+                }
+            });
         };
 
         function switchTab(tabName) {
             document.querySelectorAll('.tab-section').forEach(sec => sec.classList.add('hidden'));
             document.getElementById(`section-${tabName}`).classList.remove('hidden');
+
+            // CONTROLE DO TEMPORIZADOR: Só roda se estiver na aba 'enigmas', pausa caso contrário
+            if (tabName === 'enigmas') {
+                startTimer();
+                loadEnigma(currentUser.currentEnigma);
+            } else {
+                stopTimer();
+            }
 
             document.querySelectorAll('.nav-card').forEach(btn => {
                 btn.className = "nav-card px-6 py-2.5 rounded-xl font-cyber text-sm tracking-wider uppercase transition-all duration-300 bg-[#0b0f19] border border-gray-800 text-gray-400 flex items-center space-x-2";
@@ -640,7 +662,7 @@
         }
 
         function startTimer() {
-            if (timerInterval) clearInterval(timerInterval);
+            if (timerInterval) return; // Evita múltiplos intervalos simultâneos
             timerInterval = setInterval(() => {
                 sessionSeconds++;
                 currentUser.totalTimeSeconds++;
@@ -705,7 +727,7 @@
                 feedback.className = "text-xs font-mono text-[#0eff86] font-bold";
                 feedback.innerText = "⚡ Resposta correta! Transferindo para o próximo enigma...";
                 
-                currentUser.completedEnigmas++; // Incrementa os enigmas concluídos contados no ranking
+                currentUser.completedEnigmas++;
                 currentUser.currentEnigma++;
                 updateUserInRanking();
 
@@ -858,12 +880,10 @@
 
                 let rowBg = user.isMe ? "bg-[#00f3ff]/5 border-l-2 border-[#00f3ff]" : "";
 
-                // Status Online ou Offline com cores personalizadas
                 let statusBadge = user.isOnline 
                     ? `<span class="px-2.5 py-1 rounded-full text-xs font-cyber bg-[#0eff86]/10 text-[#0eff86] border border-[#0eff86]/30 flex items-center justify-center space-x-1.5 w-max ml-auto"><span class="w-1.5 h-1.5 rounded-full bg-[#0eff86] animate-pulse"></span><span>Online</span></span>`
                     : `<span class="px-2.5 py-1 rounded-full text-xs font-cyber bg-gray-800 text-gray-400 border border-gray-700 flex items-center justify-center space-x-1.5 w-max ml-auto"><span class="w-1.5 h-1.5 rounded-full bg-gray-500"></span><span>Offline</span></span>`;
 
-                // Exibição condicional no ranking: se completou 0, mostra Enigma #0. Senão, mostra o último concluído.
                 let displayEnigmaRank = user.completedEnigmas === 0 ? "Enigma #0" : `Enigma #${user.completedEnigmas}`;
 
                 tbody.innerHTML += `
