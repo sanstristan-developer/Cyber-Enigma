@@ -347,6 +347,19 @@
                 <div id="enigma-image-container" class="hidden rounded-xl overflow-hidden border border-gray-800 max-h-80 bg-black flex items-center justify-center">
                     <img id="enigma-img" src="" alt="Enigma Imagem" class="object-contain max-h-80 w-full">
                 </div>
+                
+                <!-- NOVO: Container do Player de Áudio Morse -->
+<div id="enigma-audio-container" class="hidden bg-black/60 border border-[#00f3ff]/40 p-6 rounded-xl flex flex-col items-center space-y-4 box-neon-blue">
+    <div class="flex items-center space-x-3 text-[#00f3ff]">
+        <i class="fa-solid fa-radio text-2xl animate-pulse"></i>
+        <span class="font-cyber font-bold text-sm tracking-wider uppercase">Ondas Sonoras</span>
+    </div>
+    
+    <audio id="enigma-audio" controls class="w-full max-w-md focus:outline-none">
+        <source id="enigma-audio-source" src="" type="audio/wav">
+        O seu navegador não suporta o elemento de áudio.
+    </audio>
+</div>
 
                 <div class="pt-4 border-t border-gray-800/80 space-y-3">
                     <label class="block text-xs font-cyber tracking-wider text-gray-400 uppercase">Insira a Resposta Correta</label>
@@ -419,7 +432,7 @@
             </div>
 
             <div class="pt-2 text-center text-xs text-gray-500 font-mono">
-                Valor creditado via saldo simulado da conta.
+                Valor pago via PIX.
             </div>
         </div>
     </div>
@@ -540,51 +553,66 @@
         const enigmas = [
             {
                 id: 1,
-                title: "O Despertar da IA",
+                title: "Sem graus de dificuldade",
                 type: "text",
-                content: "Sou feito de zeros e uns, não tenho corpo mas posso pensar. Viajo pela rede na velocidade da luz. Qual é a palavra-chave que comanda o meu núcleo? (Dica: A resposta has 5 letras: COREX)",
-                answer: "COREX",
+                content: "Posso ser dura, posso ser mole, posso até ser agitada às vezes.",
+                answer: "Água",
                 hints: [
-                    "A primeira letra é C.",
-                    "Termina com a letra X.",
-                    "A palavra exata é COREX."
+                    "A primeira letra é A.",
+                    "Termina com a letra A.",
+                    "Se bebe, se mastiga e se respira."
                 ]
             },
             {
                 id: 2,
                 title: "Labirinto Criptografado",
                 type: "text",
-                content: "Se 1 = 3, 2 = 3, 3 = 5, 4 = 4, 5 = 4, quanto vale 6? (Dica: Conte o número de letras da palavra do número em inglês: one=3, two=3, three=5, four=4, five=4, six=3). Qual o número?",
-                answer: "3",
+                content: "Se 1 = 3, 2 = 3, 3 = 5, 4 = 4, 5 = 4, quanto vale 6?",
+                answer: "Three",
                 hints: [
-                    "Pense na escrita dos números por extenso em inglês.",
-                    "One (3), Two (3), Three (5), Four (4), Five (4).",
-                    "A resposta é o número 3."
+                    "Inglês é uma língua muito usada na informática.",
+                    "Preste atenção nos números.",
+                    "In English, please."
                 ]
             },
             {
                 id: 3,
-                title: "O Cofre de Neon",
-                type: "image",
-                content: "Analise a imagem abaixo e descubra o código de 4 dígitos oculto no visor do terminal quântico.",
-                image: "https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?auto=format&fit=crop&w=800&q=80",
-                answer: "8492",
-                hints: [
-                    "Observe os dígitos brilhantes no canto superior esquerdo da tela.",
-                    "Os números são 8, 4, 9 e 2 nessa ordem.",
-                    "A senha é 8492."
+               title: "Códigos e Sinais",
+               type: "multimídia", // ou "audio" com suporte a imagem
+               content: "XXII°LVII'VI.VIII S XLIII°XII'XXXVII.VIII W.",
+               image: "https://thumb.wikimedia.org/wikipedia/commons/thumb/0/08/Leonardo_da_Vinci_%281452-1519%29_-_The_Last_Supper_%281495-1498%29.jpg/1280px-Leonardo_da_Vinci_%281452-1519%29_-_The_Last_Supper_%281495-1498%29.jpg?utm_source=pt.wikipedia.org&utm_campaign=index&utm_content=thumbnail", // Sua imagem opcional
+               audio: "audios/Codigo-morse-01.wav", // Link do áudio Morse
+               answer: "Cristo Redentor",
+               hints: [
+                    "Código Morse é fácil de resolver se um leitor de áudio você ter.",
+                    "Todos os romanos levam ao caminho.",
+                    "Moro num país tropical, abençoado por Deus."
                 ]
             },
             {
                 id: 4,
-                title: "Protocolo Final",
-                type: "text",
-                content: "Parabéns por chegar até aqui. Para concluir o último desafio e reinar no topo, digite o nome do criador de toda esta matriz cibernética: 'MATRIX'.",
-                answer: "MATRIX",
+                title: "Evolução",
+                type: "image",
+                content: "ddsf vijdslf vaef ajstdfj mpasijkfpaosdiv jmdjklahskjffval dsmflhagjsçfakf vjmçalkmsoierawoie vjçalkfdijmlçsakdfjaçvdskf asfçaslkfdaçslkdfjasfasdfas asfasçdfjaaksdjfçlsakdfjça...",
+                image: "https://yt3.ggpht.com/GBXadevVtNa-7vmiWP3ja7uGJlp8W-QRWyLR0SQSLgRG9M8HpZ0-dFMCUAkkKA9sJAjRHPGZKrF822M=s559-c-fcrop64=1,3a200000c5dfffff-rw-nd-v1",
+                answer: "dietilamida do ácido lisérgico",
                 hints: [
-                    "É o nome do famoso filme de ficção científica cyberpunk.",
-                    "Começa com M e termina com X.",
-                    "A resposta é MATRIX."
+                    "12-21-3-25.",
+                    "14 vogais e 13 consoantes.",
+                    "1953-13-04."
+                ]
+            },
+            {
+                id: 5,
+                title: "Alguns vivem no mundo da lua",
+                type: "image",
+                content: "Os fãs do astro-rei também podem ter os seus próprios fãs, e alguns são até da realeza.",
+                image: "https://www.leilaodearte.com/obras/vik-muniz-o-sonho-a-partir-de-picasso-copia-cromogenica-7699.jpg",
+                answer: "Mab",
+                hints: [
+                    "Há mais coisas entre o céu e a terra do que supõe sua vã filosofia.",
+                    "Uma vogal e duas consoantes.",
+                    "Satélite natural do esposo e filho de Gaia."
                 ]
             }
         ];
@@ -683,39 +711,55 @@
         }
 
         function loadEnigma(enigmaNum) {
-            const enigma = enigmas.find(e => e.id === enigmaNum);
-            if (!enigma) {
-                stopTimer();
-                document.getElementById('section-enigmas').innerHTML = `
-                    <div class="bg-[#0b0f19] border border-[#0eff86]/50 rounded-2xl p-8 text-center space-y-6 box-neon-green">
-                        <div class="w-16 h-16 rounded-2xl bg-[#eff86]/20 mx-auto flex items-center justify-center text-[#0eff86] text-3xl">
-                            <i class="fa-solid fa-trophy"></i>
-                        </div>
-                        <h2 class="font-cyber text-2xl font-bold text-[#0eff86]">PARABÉNS! VOCÊ ZEROU OS ENIGMAS</h2>
-                        <p class="text-gray-300 text-sm max-w-md mx-auto">Você concluiu todos os desafios disponíveis para o dia de hoje. Volte amanhã para resolver novos enigmas.</p>
-                        <button onclick="switchTab('ranking')" class="px-8 py-3 rounded-xl gradient-bg text-black font-cyber font-bold text-sm tracking-wider">VER SUA POSIÇÃO NO RANKING</button>
-                    </div>
-                `;
-                return;
-            }
+    const enigma = enigmas.find(e => e.id === enigmaNum);
+    if (!enigma) {
+        stopTimer();
+        document.getElementById('section-enigmas').innerHTML = `
+            <div class="bg-[#0b0f19] border border-[#0eff86]/50 rounded-2xl p-8 text-center space-y-6 box-neon-green">
+                <div class="w-16 h-16 rounded-2xl bg-[#0eff86]/20 mx-auto flex items-center justify-center text-[#0eff86] text-3xl">
+                    <i class="fa-solid fa-trophy"></i>
+                </div>
+                <h2 class="font-cyber text-2xl font-bold text-[#0eff86]">PARABÉNS! VOCÊ ZEROU OS ENIGMAS</h2>
+                <p class="text-gray-300 text-sm max-w-md mx-auto">Você concluiu todos os desafios disponíveis para o dia de hoje. Volte amanhã para resolver novos enigmas.</p>
+                <button onclick="switchTab('ranking')" class="px-8 py-3 rounded-xl gradient-bg text-black font-cyber font-bold text-sm tracking-wider">VER SUA POSIÇÃO NO RANKING</button>
+            </div>
+        `;
+        return;
+    }
 
-            document.getElementById('current-enigma-title').innerText = `Enigma #${enigma.id}`;
-            document.getElementById('enigma-question-title').innerText = enigma.title;
-            document.getElementById('enigma-question-desc').innerText = enigma.content;
+    document.getElementById('current-enigma-title').innerText = `Enigma #${enigma.id}`;
+    document.getElementById('enigma-question-title').innerText = enigma.title;
+    document.getElementById('enigma-question-desc').innerText = enigma.content;
 
-            const imgContainer = document.getElementById('enigma-image-container');
-            const imgElement = document.getElementById('enigma-img');
-            if (enigma.type === 'image' && enigma.image) {
-                imgElement.src = enigma.image;
-                imgContainer.classList.remove('hidden');
-            } else {
-                imgContainer.classList.add('hidden');
-            }
+    // Referências dos elementos visuais e de áudio
+    const imgContainer = document.getElementById('enigma-image-container');
+    const imgElement = document.getElementById('enigma-img');
+    const audioContainer = document.getElementById('enigma-audio-container');
+    const audioElement = document.getElementById('enigma-audio');
+    const audioSource = document.getElementById('enigma-audio-source');
 
-            document.getElementById('answer-input').value = '';
-            document.getElementById('feedback-msg').innerText = '';
-            updateHintsBadge();
-        }
+    // 1. Controla a exibição da Imagem
+    if (enigma.image) {
+        imgElement.src = enigma.image;
+        imgContainer.classList.remove('hidden');
+    } else {
+        imgContainer.classList.add('hidden');
+    }
+
+    // 2. Controla a exibição do Áudio
+    if (enigma.audio) {
+        audioSource.src = enigma.audio;
+        audioElement.load(); // Carrega o novo ficheiro de áudio
+        audioContainer.classList.remove('hidden');
+    } else {
+        audioContainer.classList.add('hidden');
+        if (audioElement) audioElement.pause();
+    }
+
+    document.getElementById('answer-input').value = '';
+    document.getElementById('feedback-msg').innerText = '';
+    updateHintsBadge();
+}
 
         function submitAnswer(event) {
             event.preventDefault();
