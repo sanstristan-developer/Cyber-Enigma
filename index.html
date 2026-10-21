@@ -240,7 +240,7 @@
                             <i class="fa-solid fa-lightbulb"></i>
                         </div>
                         <h3 class="font-cyber font-bold text-lg text-[#bc13fe]">Sistema de Dicas</h3>
-                        <p class="text-gray-400 text-sm leading-relaxed">Travado em algum enigma? Você pode adquirir até 3 dicas exclusivas por enigma. Cada dica tem o custo simbólico de apenas R$ 0,10 para auxiliar sua jornada.</p>
+                        <p class="text-gray-400 text-sm leading-relaxed">Você tem direito a 10 dicas grátis por dia. Caso queira acessar mais de 10, assine o plano mensal por apenas R$ 10,00/mês.</p>
                     </div>
                 </div>
 
@@ -324,7 +324,7 @@
                         <span id="enigma-timer" class="font-mono font-bold text-[#00f3ff] text-base">00:00</span>
                     </div>
 
-                    <!-- Botão de Comprar Dicas -->
+                    <!-- Botão de Ver Dicas -->
                     <button onclick="openHintsModal()" class="relative px-4 py-2 rounded-xl bg-[#bc13fe]/10 hover:bg-[#bc13fe]/20 border border-[#bc13fe]/40 text-[#bc13fe] font-cyber text-xs font-bold transition-all flex items-center space-x-2">
                         <i class="fa-solid fa-lightbulb"></i>
                         <span>Dicas</span>
@@ -348,18 +348,18 @@
                     <img id="enigma-img" src="" alt="Enigma Imagem" class="object-contain max-h-80 w-full">
                 </div>
                 
-                <!-- NOVO: Container do Player de Áudio Morse -->
-<div id="enigma-audio-container" class="hidden bg-black/60 border border-[#00f3ff]/40 p-6 rounded-xl flex flex-col items-center space-y-4 box-neon-blue">
-    <div class="flex items-center space-x-3 text-[#00f3ff]">
-        <i class="fa-solid fa-radio text-2xl animate-pulse"></i>
-        <span class="font-cyber font-bold text-sm tracking-wider uppercase">Ondas Sonoras</span>
-    </div>
-    
-    <audio id="enigma-audio" controls class="w-full max-w-md focus:outline-none">
-        <source id="enigma-audio-source" src="" type="audio/wav">
-        O seu navegador não suporta o elemento de áudio.
-    </audio>
-</div>
+                <!-- Container do Player de Áudio Morse -->
+                <div id="enigma-audio-container" class="hidden bg-black/60 border border-[#00f3ff]/40 p-6 rounded-xl flex flex-col items-center space-y-4 box-neon-blue">
+                    <div class="flex items-center space-x-3 text-[#00f3ff]">
+                        <i class="fa-solid fa-radio text-2xl animate-pulse"></i>
+                        <span class="font-cyber font-bold text-sm tracking-wider uppercase">Ondas Sonoras</span>
+                    </div>
+                    
+                    <audio id="enigma-audio" controls class="w-full max-w-md focus:outline-none">
+                        <source id="enigma-audio-source" src="" type="audio/wav">
+                        O seu navegador não suporta o elemento de áudio.
+                    </audio>
+                </div>
 
                 <div class="pt-4 border-t border-gray-800/80 space-y-3">
                     <label class="block text-xs font-cyber tracking-wider text-gray-400 uppercase">Insira a Resposta Correta</label>
@@ -418,8 +418,8 @@
                         <i class="fa-solid fa-lightbulb"></i>
                     </div>
                     <div>
-                        <h3 class="font-cyber font-bold text-white text-base">Comprar Dicas</h3>
-                        <p class="text-xs text-gray-400">Cada dica custa apenas R$ 0,10</p>
+                        <h3 class="font-cyber font-bold text-white text-base">Dicas do Enigma</h3>
+                        <p id="hints-counter-info" class="text-xs text-gray-400">Dicas grátis usadas hoje: 0 / 10</p>
                     </div>
                 </div>
                 <button onclick="closeHintsModal()" class="text-gray-400 hover:text-white p-2">
@@ -432,7 +432,44 @@
             </div>
 
             <div class="pt-2 text-center text-xs text-gray-500 font-mono">
-                Valor pago via PIX.
+                10 dicas grátis disponíveis por dia.
+            </div>
+        </div>
+    </div>
+
+    <!-- ================= MODAL POPUP DE ASSINATURA (MAIS DE 10 DICAS) ================= -->
+    <div id="subscription-modal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/85 backdrop-blur-md hidden animate-fadeIn">
+        <div class="bg-[#0b0f19] border border-[#00f3ff]/60 rounded-2xl w-full max-w-md p-6 sm:p-8 m-4 space-y-6 box-neon-blue relative text-center">
+            
+            <div class="w-16 h-16 rounded-2xl bg-[#bc13fe]/20 border border-[#bc13fe]/50 mx-auto flex items-center justify-center text-[#bc13fe] text-3xl shadow-lg shadow-[#bc13fe]/30">
+                <i class="fa-solid fa-crown"></i>
+            </div>
+
+            <div class="space-y-3">
+                <h3 class="font-cyber font-extrabold text-xl text-white tracking-wider">LIMITE DIÁRIO ATINGIDO!</h3>
+                <p class="text-gray-300 text-sm leading-relaxed font-medium">
+                    Adquira a assinatura mensal de dicas para ter acesso a todas as dicas por <span class="text-[#0eff86] font-bold">10 reais por mês</span>.
+                </p>
+            </div>
+
+            <div class="bg-black/60 border border-gray-800 p-4 rounded-xl space-y-2">
+                <div class="flex items-center justify-between text-xs text-gray-400">
+                    <span>Plano Mensal Dicas VIP</span>
+                    <span class="text-[#00f3ff] font-bold">R$ 10,00 / mês</span>
+                </div>
+                <div class="flex items-center justify-between text-xs text-gray-400">
+                    <span>Acesso Ilimitado</span>
+                    <span class="text-[#0eff86] font-bold">Liberado</span>
+                </div>
+            </div>
+
+            <div class="flex flex-col gap-3">
+                <button onclick="subscribePlan()" class="w-full py-3.5 rounded-xl gradient-bg text-black font-cyber font-bold text-sm tracking-wider hover:opacity-90 transition-opacity shadow-lg shadow-[#00f3ff]/20">
+                    ASSINAR AGORA (R$ 10/MÊS)
+                </button>
+                <button onclick="closeSubscriptionModal()" class="w-full py-2.5 rounded-xl bg-gray-900 border border-gray-800 text-gray-400 font-cyber text-xs hover:text-white transition-colors">
+                    FECHAR
+                </button>
             </div>
         </div>
     </div>
@@ -507,6 +544,32 @@
     <script>
         let currentRemainingDays = 365;
 
+        // Controle Diário de 10 Dicas Gratuitas
+        const FREE_HINTS_LIMIT_DAILY = 10;
+
+        function checkAndResetDailyHints() {
+            const todayStr = new Date().toISOString().slice(0, 10); // Formato YYYY-MM-DD
+            const savedDate = localStorage.getItem('hints_last_date');
+
+            if (savedDate !== todayStr) {
+                // Se for um novo dia, reseta a contagem e atualiza a data
+                localStorage.setItem('hints_last_date', todayStr);
+                localStorage.setItem('daily_unlocked_hints_count', '0');
+            }
+        }
+
+        function getDailyUnlockedHintsCount() {
+            checkAndResetDailyHints();
+            const count = localStorage.getItem('daily_unlocked_hints_count');
+            return count ? parseInt(count, 10) : 0;
+        }
+
+        function incrementDailyUnlockedHintsCount() {
+            checkAndResetDailyHints();
+            const current = getDailyUnlockedHintsCount();
+            localStorage.setItem('daily_unlocked_hints_count', (current + 1).toString());
+        }
+
         function initSiteCountdown() {
             const INITIAL_DAYS = 365;
             let startDateStr = localStorage.getItem('site_start_date');
@@ -539,6 +602,19 @@
 
         function closePrizeModal() {
             document.getElementById('prize-modal').classList.add('hidden');
+        }
+
+        function openSubscriptionModal() {
+            document.getElementById('subscription-modal').classList.remove('hidden');
+        }
+
+        function closeSubscriptionModal() {
+            document.getElementById('subscription-modal').classList.add('hidden');
+        }
+
+        function subscribePlan() {
+            alert("Redirecionando para a página de pagamento da assinatura (R$ 10,00/mês)...");
+            closeSubscriptionModal();
         }
 
         let currentUser = {
@@ -578,10 +654,10 @@
             {
                 id: 3,
                title: "Códigos e Sinais",
-               type: "multimídia", // ou "audio" com suporte a imagem
+               type: "multimídia",
                content: "XXII°LVII'VI.VIII S XLIII°XII'XXXVII.VIII W.",
-               image: "https://thumb.wikimedia.org/wikipedia/commons/thumb/0/08/Leonardo_da_Vinci_%281452-1519%29_-_The_Last_Supper_%281495-1498%29.jpg/1280px-Leonardo_da_Vinci_%281452-1519%29_-_The_Last_Supper_%281495-1498%29.jpg?utm_source=pt.wikipedia.org&utm_campaign=index&utm_content=thumbnail", // Sua imagem opcional
-               audio: "audios/Codigo-morse-01.wav", // Link do áudio Morse
+               image: "https://thumb.wikimedia.org/wikipedia/commons/thumb/0/08/Leonardo_da_Vinci_%281452-1519%29_-_The_Last_Supper_%281495-1498%29.jpg/1280px-Leonardo_da_Vinci_%281452-1519%29_-_The_Last_Supper_%281495-1498%29.jpg?utm_source=pt.wikipedia.org&utm_campaign=index&utm_content=thumbnail",
+               audio: "audios/Codigo-morse-01.wav",
                answer: "Cristo Redentor",
                hints: [
                     "Código Morse é fácil de resolver se um editor de áudio você ter.",
@@ -631,17 +707,14 @@
 
         window.onload = function() {
             initSiteCountdown();
-            // Começa na aba "Como Funciona" por padrão ou qualquer outra que não seja Enigmas,
-            // garantindo que o cronômetro NÃO inicie sozinho ao carregar a página.
+            checkAndResetDailyHints();
             switchTab('como-funciona');
             renderRanking();
 
-            // Detecta se o usuário saiu do site / mudou de aba do navegador
             document.addEventListener("visibilitychange", function() {
                 if (document.hidden) {
                     stopTimer();
                 } else {
-                    // Se voltar e estiver na aba de enigmas, retoma o timer
                     const activeSection = document.querySelector('.tab-section:not(.hidden)');
                     if (activeSection && activeSection.id === 'section-enigmas') {
                         startTimer();
@@ -654,7 +727,6 @@
             document.querySelectorAll('.tab-section').forEach(sec => sec.classList.add('hidden'));
             document.getElementById(`section-${tabName}`).classList.remove('hidden');
 
-            // CONTROLE DO TEMPORIZADOR: Só roda se estiver na aba 'enigmas', pausa caso contrário
             if (tabName === 'enigmas') {
                 startTimer();
                 loadEnigma(currentUser.currentEnigma);
@@ -690,7 +762,7 @@
         }
 
         function startTimer() {
-            if (timerInterval) return; // Evita múltiplos intervalos simultâneos
+            if (timerInterval) return;
             timerInterval = setInterval(() => {
                 sessionSeconds++;
                 currentUser.totalTimeSeconds++;
@@ -711,55 +783,52 @@
         }
 
         function loadEnigma(enigmaNum) {
-    const enigma = enigmas.find(e => e.id === enigmaNum);
-    if (!enigma) {
-        stopTimer();
-        document.getElementById('section-enigmas').innerHTML = `
-            <div class="bg-[#0b0f19] border border-[#0eff86]/50 rounded-2xl p-8 text-center space-y-6 box-neon-green">
-                <div class="w-16 h-16 rounded-2xl bg-[#0eff86]/20 mx-auto flex items-center justify-center text-[#0eff86] text-3xl">
-                    <i class="fa-solid fa-trophy"></i>
-                </div>
-                <h2 class="font-cyber text-2xl font-bold text-[#0eff86]">PARABÉNS! VOCÊ ZEROU OS ENIGMAS</h2>
-                <p class="text-gray-300 text-sm max-w-md mx-auto">Você concluiu todos os desafios disponíveis para o dia de hoje. Volte amanhã para resolver novos enigmas.</p>
-                <button onclick="switchTab('ranking')" class="px-8 py-3 rounded-xl gradient-bg text-black font-cyber font-bold text-sm tracking-wider">VER SUA POSIÇÃO NO RANKING</button>
-            </div>
-        `;
-        return;
-    }
+            const enigma = enigmas.find(e => e.id === enigmaNum);
+            if (!enigma) {
+                stopTimer();
+                document.getElementById('section-enigmas').innerHTML = `
+                    <div class="bg-[#0b0f19] border border-[#0eff86]/50 rounded-2xl p-8 text-center space-y-6 box-neon-green">
+                        <div class="w-16 h-16 rounded-2xl bg-[#0eff86]/20 mx-auto flex items-center justify-center text-[#0eff86] text-3xl">
+                            <i class="fa-solid fa-trophy"></i>
+                        </div>
+                        <h2 class="font-cyber text-2xl font-bold text-[#0eff86]">PARABÉNS! VOCÊ ZEROU OS ENIGMAS</h2>
+                        <p class="text-gray-300 text-sm max-w-md mx-auto">Você concluiu todos os desafios disponíveis para o dia de hoje. Volte amanhã para resolver novos enigmas.</p>
+                        <button onclick="switchTab('ranking')" class="px-8 py-3 rounded-xl gradient-bg text-black font-cyber font-bold text-sm tracking-wider">VER SUA POSIÇÃO NO RANKING</button>
+                    </div>
+                `;
+                return;
+            }
 
-    document.getElementById('current-enigma-title').innerText = `Enigma #${enigma.id}`;
-    document.getElementById('enigma-question-title').innerText = enigma.title;
-    document.getElementById('enigma-question-desc').innerText = enigma.content;
+            document.getElementById('current-enigma-title').innerText = `Enigma #${enigma.id}`;
+            document.getElementById('enigma-question-title').innerText = enigma.title;
+            document.getElementById('enigma-question-desc').innerText = enigma.content;
 
-    // Referências dos elementos visuais e de áudio
-    const imgContainer = document.getElementById('enigma-image-container');
-    const imgElement = document.getElementById('enigma-img');
-    const audioContainer = document.getElementById('enigma-audio-container');
-    const audioElement = document.getElementById('enigma-audio');
-    const audioSource = document.getElementById('enigma-audio-source');
+            const imgContainer = document.getElementById('enigma-image-container');
+            const imgElement = document.getElementById('enigma-img');
+            const audioContainer = document.getElementById('enigma-audio-container');
+            const audioElement = document.getElementById('enigma-audio');
+            const audioSource = document.getElementById('enigma-audio-source');
 
-    // 1. Controla a exibição da Imagem
-    if (enigma.image) {
-        imgElement.src = enigma.image;
-        imgContainer.classList.remove('hidden');
-    } else {
-        imgContainer.classList.add('hidden');
-    }
+            if (enigma.image) {
+                imgElement.src = enigma.image;
+                imgContainer.classList.remove('hidden');
+            } else {
+                imgContainer.classList.add('hidden');
+            }
 
-    // 2. Controla a exibição do Áudio
-    if (enigma.audio) {
-        audioSource.src = enigma.audio;
-        audioElement.load(); // Carrega o novo ficheiro de áudio
-        audioContainer.classList.remove('hidden');
-    } else {
-        audioContainer.classList.add('hidden');
-        if (audioElement) audioElement.pause();
-    }
+            if (enigma.audio) {
+                audioSource.src = enigma.audio;
+                audioElement.load();
+                audioContainer.classList.remove('hidden');
+            } else {
+                audioContainer.classList.add('hidden');
+                if (audioElement) audioElement.pause();
+            }
 
-    document.getElementById('answer-input').value = '';
-    document.getElementById('feedback-msg').innerText = '';
-    updateHintsBadge();
-}
+            document.getElementById('answer-input').value = '';
+            document.getElementById('feedback-msg').innerText = '';
+            updateHintsBadge();
+        }
 
         function submitAnswer(event) {
             event.preventDefault();
@@ -793,6 +862,9 @@
             listEl.innerHTML = '';
 
             const unlocked = unlockedHints[enigma.id] || [];
+            const dailyUsed = getDailyUnlockedHintsCount();
+
+            document.getElementById('hints-counter-info').innerText = `Dicas grátis usadas hoje: ${dailyUsed} / ${FREE_HINTS_LIMIT_DAILY}`;
 
             enigma.hints.forEach((hintText, index) => {
                 const isUnlocked = unlocked.includes(index);
@@ -804,12 +876,12 @@
                 if (isUnlocked) {
                     html += `<div class="text-xs text-gray-200">${hintText}</div>`;
                 } else {
-                    html += `<div class="text-xs text-gray-500 italic">🔒 Conteúdo criptografado (R$ 0,10)</div>`;
+                    html += `<div class="text-xs text-gray-500 italic">🔒 Conteúdo bloqueado</div>`;
                 }
                 html += `</div>`;
 
                 if (!isUnlocked) {
-                    html += `<button onclick="buyHint(${enigma.id}, ${index})" class="px-3 py-1.5 rounded-lg bg-[#bc13fe] text-white font-cyber text-xs font-bold hover:opacity-90 whitespace-nowrap">Comprar R$ 0,10</button>`;
+                    html += `<button onclick="handleHintClick(${enigma.id}, ${index})" class="px-3 py-1.5 rounded-lg bg-[#bc13fe] text-white font-cyber text-xs font-bold hover:opacity-90 whitespace-nowrap">Ver Dica</button>`;
                 } else {
                     html += `<span class="text-xs text-[#0eff86] font-mono"><i class="fa-solid fa-check"></i> Desbloqueada</span>`;
                 }
@@ -824,11 +896,25 @@
             document.getElementById('hints-modal').classList.add('hidden');
         }
 
-        function buyHint(enigmaId, hintIndex) {
+        function handleHintClick(enigmaId, hintIndex) {
+            const dailyUsed = getDailyUnlockedHintsCount();
+
+            // VERIFICAÇÃO DO LIMITE DE 10 DICAS DIÁRIAS
+            if (dailyUsed >= FREE_HINTS_LIMIT_DAILY) {
+                closeHintsModal();
+                openSubscriptionModal();
+                return;
+            }
+
+            // Desbloqueia a dica
             if (!unlockedHints[enigmaId]) {
                 unlockedHints[enigmaId] = [];
             }
             unlockedHints[enigmaId].push(hintIndex);
+            
+            // Incrementa o contador diário
+            incrementDailyUnlockedHintsCount();
+
             openHintsModal();
             updateHintsBadge();
         }
